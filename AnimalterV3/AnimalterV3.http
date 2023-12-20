@@ -1,0 +1,6 @@
+# @AnimalterV3_HostAddress = http://localhost:5013
+
+# GET {{AnimalterV3_HostAddress}}/weatherforecast/
+# Accept: application/json
+
+# ###
