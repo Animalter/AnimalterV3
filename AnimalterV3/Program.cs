@@ -33,6 +33,12 @@ builder.Services.AddTransient<ITypeeDal, EfTypeeDal>();
 
 builder.Services.AddTransient<IAnimalService, AnimalManager>();
 builder.Services.AddTransient<IAnimalDal, EfAnimalDal>();
+
+builder.Services.AddTransient<IUserService, UserManager>();
+builder.Services.AddTransient<IUserDal, EfUserDal>();
+
+//builder.Services.AddTransient<IRoleService, RoleManager>();
+//builder.Services.AddTransient<IRoleDal, EfRoleDal>
 #endregion
 var app = builder.Build();
 
