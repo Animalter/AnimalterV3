@@ -2,6 +2,7 @@
 using AnimalterV3.Dto;
 using AnimalterV3.Entity.Abstract.DataAcces.Abstract;
 using AnimalterV3.Entity.Concrete;
+using AnimalterV3.Entity.Concrete.EntityFramework;
 using AnimalterV3.Utilities.Abstract;
 using AnimalterV3.Utilities.Concrete;
 using System.Linq.Expressions;
@@ -37,6 +38,10 @@ namespace AnimalterV3.Busssines.Concrete
         public List<UserTbl> Getall()
         {
             return _userDal.GetAll();
+        }
+        public UserTbl GetById(int id)
+        {
+            return _userDal.GetAll(x => x.UserId == id) != null ? _userDal.GetAll(x => x.UserId == id).FirstOrDefault() : new UserTbl();
         }
 
         public IUtilityResult Update(UserDto user)

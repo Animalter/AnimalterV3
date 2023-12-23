@@ -59,5 +59,9 @@ namespace AnimalterV3.Busssines.Concrete
             return new SuccessReasult();
         }
 
+        public Animal GetById(int id)
+        {
+            return _animalDal.GetAll(x => x.AnimalId == id) != null ? _animalDal.GetAll(x => x.AnimalId == id).FirstOrDefault() : new Animal(); ;
+        }
     }
 }

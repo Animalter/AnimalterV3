@@ -45,6 +45,9 @@ namespace AnimalterV3.Busssines.Concrete
             return new SuccessReasult();
         }
 
-      
+        public Genus GetById(int id)
+        {
+            return _genusDal.GetAll(x => x.GenusId == id) != null ? _genusDal.GetAll(x => x.GenusId == id).FirstOrDefault() : new Genus();
+        }
     }
 }

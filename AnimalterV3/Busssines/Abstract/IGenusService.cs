@@ -7,6 +7,7 @@ namespace AnimalterV3.Busssines.Abstract
 {
     public interface IGenusService 
     {
+        Genus GetById(int id);
             List<Genus> Getall();
             IUtilityResult Add(GenusDto genus);
             IUtilityResult Update(GenusDto genus);

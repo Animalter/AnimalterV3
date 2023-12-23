@@ -7,6 +7,7 @@ namespace AnimalterV3.Busssines.Abstract
 {
     public interface ICustomerService 
     {
+        Customer GetById(int id);
         List<Customer> Getall();
         IUtilityResult Add(CustomerDto customer);
         IUtilityResult Update(CustomerDto customer);

@@ -23,6 +23,11 @@ namespace AnimalterV3.Controllers
         #endregion
 
         #region methods
+        [HttpGet("GetUserById")]
+        public async Task<UserTbl> GetUserById(int Id)
+        {
+            return _userService.GetById(Id);
+        }
         [HttpGet]
         public async Task<List<UserTbl>> GetAllUser()
         {

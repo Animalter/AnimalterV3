@@ -4,6 +4,7 @@ using AnimalterV3.Dto;
 using AnimalterV3.Entity.Abstract.DataAcces.Abstract;
 using AnimalterV3.Entity.Abstract.Entites;
 using AnimalterV3.Entity.Concrete;
+using AnimalterV3.Entity.Concrete.EntityFramework;
 using AnimalterV3.Utilities.Abstract;
 using AnimalterV3.Utilities.Concrete;
 
@@ -41,6 +42,11 @@ namespace AnimalterV3.Busssines.Concrete
         {
             return _customerDal.GetAll().ToList();
         }
+        public Customer GetById(int id)
+        {
+            return _customerDal.GetAll(x => x.CustomerId == id) != null ? _customerDal.GetAll(x => x.CustomerId == id).FirstOrDefault() : new Customer();
+        }
+
         public IUtilityResult Update(CustomerDto customerDto)
         {
             var customer = new Customer();

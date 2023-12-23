@@ -25,6 +25,11 @@ namespace AnimalterV3.Controllers
         #endregion
 
         #region methods
+        [HttpGet("GetAdoptionStatusById")]
+        public async Task<AdoptionStatus> GetAdoptionStatusById(int Id)
+        {
+            return _adoptionStatusService.GetById(Id);
+        }
         [HttpGet]
         public async Task<List<AdoptionStatus>> GetAllAdoption()
         {

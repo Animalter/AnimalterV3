@@ -23,7 +23,12 @@ namespace AnimalterV3.Controllers
         #endregion
 
         #region methods
-       
+        [HttpGet("GetGenusById")]
+        public async Task<Genus> GetGenusById(int Id)
+        {
+            return _genusService.GetById(Id);
+        }
+
         [HttpGet]
         public async Task<List<Genus>> GetAllGenus()
         {

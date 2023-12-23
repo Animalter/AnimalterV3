@@ -38,6 +38,11 @@ namespace AnimalterV3.Busssines.Concrete
            return _roleDal.GetAll();
         }
 
+        public RoleTbl GetById(int id)
+        {
+            return _roleDal.GetAll(x => x.RoleId == id) != null ? _roleDal.GetAll(x => x.RoleId == id).FirstOrDefault() : new RoleTbl();
+        }
+
         public IUtilityResult Update(RoleDto role)
         {
             var roleTbl = new RoleTbl();

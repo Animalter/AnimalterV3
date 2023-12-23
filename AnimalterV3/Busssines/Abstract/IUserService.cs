@@ -7,6 +7,7 @@ namespace AnimalterV3.Busssines.Abstract
 {
     public interface IUserService
     {
+        UserTbl GetById(int id);
         List<UserTbl> Getall();
         IUtilityResult Add(UserDto user);
         IUtilityResult Update(UserDto user);

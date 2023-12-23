@@ -6,6 +6,7 @@ namespace AnimalterV3.Busssines.Abstract
 {
     public interface IRoleService
     {
+        RoleTbl GetById(int id);
         List<RoleTbl> GetAll();
         IUtilityResult Add(RoleDto role);
         IUtilityResult Update(RoleDto role);

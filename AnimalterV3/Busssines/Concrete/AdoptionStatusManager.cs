@@ -17,6 +17,7 @@ namespace AnimalterV3.Busssines.Concrete
             _adoptionStatusDal = adoptionStatusDal;
 
         }
+       
         public IUtilityResult Add(AdoptionStatusDto adoptionStatusDto)
         {
             AdoptionStatus adoptionStatus = new AdoptionStatus();
@@ -44,5 +45,9 @@ namespace AnimalterV3.Busssines.Concrete
             return new SuccessReasult();
         }
 
+        public AdoptionStatus GetById(int id)
+        {
+            return _adoptionStatusDal.GetAll(x => x.AdoptionId == id) != null ? _adoptionStatusDal.GetAll(x => x.AdoptionId == id).FirstOrDefault() : new AdoptionStatus();
+        }
     }
 }

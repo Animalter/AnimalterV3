@@ -7,7 +7,8 @@ namespace AnimalterV3.Busssines.Abstract
 {
     public interface IAnimalService
     {
-            List<Animal> Getall();
+        Animal GetById(int id);
+        List<Animal> Getall();
             IUtilityResult Add(AnimalDto animal);
             IUtilityResult Update(AnimalDto animal);
             IUtilityResult Delete(AnimalDto animal);

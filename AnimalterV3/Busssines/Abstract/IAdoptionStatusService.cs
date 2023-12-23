@@ -7,6 +7,7 @@ namespace AnimalterV3.Busssines.Abstract
 {
     public interface IAdoptionStatusService
     {
+        AdoptionStatus GetById(int id);
         List<AdoptionStatus> Getall();
         IUtilityResult Add(AdoptionStatusDto adoptionStatus);
         IUtilityResult Update(AdoptionStatusDto adoptionStatus);
