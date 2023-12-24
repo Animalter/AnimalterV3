@@ -9,6 +9,7 @@ namespace AnimalterV3.Entity.Concrete
         public int RoleId { get; set; }
         public string RoleName { get; set; }
 
-        public virtual ICollection<UserRoleTbl> UserRolTbles { get; set; }
+        // Bir rolün birden fazla kullanıcısı olabilir
+        public virtual ICollection<UserRoleTbl> UserRoles { get; set; }
     }
 }

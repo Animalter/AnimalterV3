@@ -18,8 +18,7 @@ namespace AnimalterV3.Entity.Concrete
         
         public int AnimalAgeMouth { get; set; }
 
-        [StringLength(50)]
-        public string AnmalGenus { get; set; }
+    
 
         [StringLength(50)]
         public string AnimalAbout { get; set; }

@@ -11,13 +11,13 @@ namespace AnimalterV3.Entity.Concrete
         [Key]
         public int UserRoleID { get; set; }
 
-        [ForeignKey("User")]
+        // Bir kullanıcının birden fazla rolü olabilir
         public int UserId { get; set; }
+        public UserTbl User { get; set; }
 
-        [ForeignKey("Role")]
         public int RoleId { get; set; }
+        public RoleTbl Role { get; set; }
 
-        public virtual UserTbl UserTbl { get; set; }
-        public virtual RoleTbl RoleTbl { get; set; }
+
     }
 }

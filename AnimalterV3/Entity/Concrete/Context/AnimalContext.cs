@@ -23,5 +23,26 @@ namespace AnimalterV3.Entity.Concrete.Context
         public DbSet<UserTbl> UserTbls { get; set; }
         public DbSet<RoleTbl> RoleTbls { get; set; }
         public DbSet<UserRoleTbl> UserRoles { get; set; }
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<UserRoleTbl>().HasOne(ur => ur.)
+        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+            modelBuilder.Entity<UserRoleTbl>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.UserRoles)
+                .HasForeignKey(ur => ur.UserId);
+
+            
+            modelBuilder.Entity<UserRoleTbl>()
+                .HasOne(ur => ur.Role)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.RoleId);
+        }
     }
 }
+
+
