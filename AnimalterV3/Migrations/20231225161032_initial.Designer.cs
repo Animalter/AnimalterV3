@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimalterV3.Migrations
 {
     [DbContext(typeof(AnimalContext))]
-    [Migration("20231219062514_Initial")]
-    partial class Initial
+    [Migration("20231225161032_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,11 +114,6 @@ namespace AnimalterV3.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("AnmalGenus")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<int>("GenusId")
                         .HasColumnType("int");
 
@@ -172,17 +167,12 @@ namespace AnimalterV3.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("TypeId")
+                    b.Property<int?>("TypeeTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("GenusId");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("TypeeTypeId");
 
                     b.ToTable("Genus");
                 });
@@ -205,7 +195,24 @@ namespace AnimalterV3.Migrations
                     b.ToTable("OperationClaims");
                 });
 
-            modelBuilder.Entity("AnimalterV3.Entity.Concrete.Type", b =>
+            modelBuilder.Entity("AnimalterV3.Entity.Concrete.RoleTbl", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("RoleTbls");
+                });
+
+            modelBuilder.Entity("AnimalterV3.Entity.Concrete.Typee", b =>
                 {
                     b.Property<int>("TypeId")
                         .ValueGeneratedOnAdd()
@@ -213,7 +220,7 @@ namespace AnimalterV3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TypeId"));
 
-                    b.Property<string>("Typee")
+                    b.Property<string>("Typeee")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -243,6 +250,51 @@ namespace AnimalterV3.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserOperationClaims");
+                });
+
+            modelBuilder.Entity("AnimalterV3.Entity.Concrete.UserRoleTbl", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserRoleID")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoles");
+                });
+
+            modelBuilder.Entity("AnimalterV3.Entity.Concrete.UserTbl", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+
+                    b.Property<string>("Mail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PhoneNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserTbls");
                 });
 
             modelBuilder.Entity("AnimalterV3.Entity.Concrete.AdoptionStatus", b =>
@@ -277,9 +329,28 @@ namespace AnimalterV3.Migrations
 
             modelBuilder.Entity("AnimalterV3.Entity.Concrete.Genus", b =>
                 {
-                    b.HasOne("AnimalterV3.Entity.Concrete.Type", null)
+                    b.HasOne("AnimalterV3.Entity.Concrete.Typee", null)
                         .WithMany("GenusList")
-                        .HasForeignKey("TypeId");
+                        .HasForeignKey("TypeeTypeId");
+                });
+
+            modelBuilder.Entity("AnimalterV3.Entity.Concrete.UserRoleTbl", b =>
+                {
+                    b.HasOne("AnimalterV3.Entity.Concrete.RoleTbl", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AnimalterV3.Entity.Concrete.UserTbl", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AnimalterV3.Entity.Concrete.Animal", b =>
@@ -297,9 +368,19 @@ namespace AnimalterV3.Migrations
                     b.Navigation("Animals");
                 });
 
-            modelBuilder.Entity("AnimalterV3.Entity.Concrete.Type", b =>
+            modelBuilder.Entity("AnimalterV3.Entity.Concrete.RoleTbl", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("AnimalterV3.Entity.Concrete.Typee", b =>
                 {
                     b.Navigation("GenusList");
+                });
+
+            modelBuilder.Entity("AnimalterV3.Entity.Concrete.UserTbl", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

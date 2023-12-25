@@ -5,6 +5,7 @@ namespace AnimalterV3.Dto
     public class AnimalDto
     {
         public int AnimalId { get; set; }
+        public int GenusId { get; set; }
         public string AnimalName { get; set; }
 
         public int AnimalAgeYear { get; set; }

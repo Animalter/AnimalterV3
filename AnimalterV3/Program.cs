@@ -39,6 +39,8 @@ builder.Services.AddTransient<IUserDal, EfUserDal>();
 
 builder.Services.AddTransient<IRoleService, RoleManager>();
 builder.Services.AddTransient<IRoleDal, EfRoleDal>();
+
+builder.Services.AddTransient<IUserRoleDal, EfUserRoleDal>();
 #endregion
 var app = builder.Build();
 

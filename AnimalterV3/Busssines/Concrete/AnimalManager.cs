@@ -19,6 +19,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Add(AnimalDto animalDto)
         {
             Animal animal = new Animal();
+            animal.GenusId=animalDto.GenusId;
             animal.AnimalName = animalDto.AnimalName;
             animal.AnimalAgeYear = animalDto.AnimalAgeYear;
             animal.AnimalAgeMouth = animalDto.AnimalAgeYear;
@@ -37,6 +38,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Update(AnimalDto animalDto)
         {
             var animal = new Animal();
+            animal.GenusId = animalDto.GenusId;
             animal.AnimalId= animalDto.AnimalId;
             animal.AnimalName = animalDto.AnimalName;
             animal.AnimalAgeYear = animalDto.AnimalAgeYear;

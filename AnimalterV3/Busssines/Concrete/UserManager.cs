@@ -5,6 +5,8 @@ using AnimalterV3.Entity.Concrete;
 using AnimalterV3.Entity.Concrete.EntityFramework;
 using AnimalterV3.Utilities.Abstract;
 using AnimalterV3.Utilities.Concrete;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
 namespace AnimalterV3.Busssines.Concrete
@@ -12,18 +14,22 @@ namespace AnimalterV3.Busssines.Concrete
     public class UserManager : IUserService
     {
         private IUserDal _userDal;
-        public UserManager(IUserDal userDal)
+        private IRoleDal _roleDal;
+        private IUserRoleDal _userRoleDal;
+        public UserManager(IUserDal userDal, IRoleDal roleDal, IUserRoleDal userRoleDal)
         {
             _userDal = userDal;
+            _roleDal = roleDal;
+            _userRoleDal = userRoleDal;
         }
 
         public IUtilityResult Add(UserDto user)
         {
             UserTbl userTbl = new UserTbl();
-            userTbl.UserName= user.UserName;
-            userTbl.UserPassword= user.UserPassword;
-            userTbl.PhoneNumber= user.PhoneNumber;
-            userTbl.Mail= user.Mail;
+            userTbl.UserName = user.UserName;
+            userTbl.UserPassword = user.UserPassword;
+            userTbl.PhoneNumber = user.PhoneNumber;
+            userTbl.Mail = user.Mail;
             _userDal.Add(userTbl);
             return new SuccessReasult();
         }
@@ -32,7 +38,7 @@ namespace AnimalterV3.Busssines.Concrete
         {
             UserTbl userTbl = new UserTbl();
 
-            userTbl.UserId= user.UserId;
+            userTbl.UserId = user.UserId;
             userTbl.UserName = user.UserName;
             userTbl.UserPassword = user.UserPassword;
             userTbl.PhoneNumber = user.PhoneNumber;
@@ -55,7 +61,7 @@ namespace AnimalterV3.Busssines.Concrete
         {
             UserTbl userTbl = new UserTbl();
 
-            userTbl.UserId= user.UserId;
+            userTbl.UserId = user.UserId;
             userTbl.UserName = user.UserName;
             userTbl.UserPassword = user.UserPassword;
             userTbl.PhoneNumber = user.PhoneNumber;
@@ -63,5 +69,25 @@ namespace AnimalterV3.Busssines.Concrete
             _userDal.Update(userTbl);
             return new SuccessReasult();
         }
+
+
+        public AccountDto Login(string UserName, string Password)
+        {
+            var Login = (from u in _userDal.GetAll().Where(x => (x.UserName == UserName.Trim() || x.Mail == UserName) && x.UserPassword.Trim() == Password.Trim())
+                         join ur in _userRoleDal.GetAll() on u.UserId equals ur.UserId into gj
+                         from x in gj.DefaultIfEmpty()
+                         join r in _roleDal.GetAll() on x.RoleId equals r.RoleId into bjk
+                         from y in bjk.DefaultIfEmpty()
+                         select new AccountDto
+                         {
+                             RoleId = y.RoleId,
+                             UserName = u.UserName,
+                             UserId = u.UserId,
+                             RoleName = y.RoleName,
+                             UserEmail = u.Mail
+                         }).FirstOrDefault();
+            return Login;
+        }
+
     }
 }

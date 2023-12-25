@@ -8,6 +8,6 @@
         public string? Mail { get; set; }
         public int? PhoneNumber { get; set; }
 
-        public List<string> Roles { get; set; }
+       
     }
 }

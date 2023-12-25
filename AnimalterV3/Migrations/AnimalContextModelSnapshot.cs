@@ -251,29 +251,18 @@ namespace AnimalterV3.Migrations
 
             modelBuilder.Entity("AnimalterV3.Entity.Concrete.UserRoleTbl", b =>
                 {
-                    b.Property<int>("UserRoleID")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRoleID"));
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoleTblRoleId")
+                    b.Property<int>("UserRoleID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.HasKey("UserId", "RoleId");
 
-                    b.Property<int?>("UserTblUserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserRoleID");
-
-                    b.HasIndex("RoleTblRoleId");
-
-                    b.HasIndex("UserTblUserId");
+                    b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles");
                 });
@@ -285,6 +274,12 @@ namespace AnimalterV3.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+
+                    b.Property<string>("Mail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PhoneNumber")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -338,13 +333,21 @@ namespace AnimalterV3.Migrations
 
             modelBuilder.Entity("AnimalterV3.Entity.Concrete.UserRoleTbl", b =>
                 {
-                    b.HasOne("AnimalterV3.Entity.Concrete.RoleTbl", null)
-                        .WithMany("UserRolTbles")
-                        .HasForeignKey("RoleTblRoleId");
+                    b.HasOne("AnimalterV3.Entity.Concrete.RoleTbl", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("AnimalterV3.Entity.Concrete.UserTbl", null)
-                        .WithMany("UserRolTbles")
-                        .HasForeignKey("UserTblUserId");
+                    b.HasOne("AnimalterV3.Entity.Concrete.UserTbl", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AnimalterV3.Entity.Concrete.Animal", b =>
@@ -364,7 +367,7 @@ namespace AnimalterV3.Migrations
 
             modelBuilder.Entity("AnimalterV3.Entity.Concrete.RoleTbl", b =>
                 {
-                    b.Navigation("UserRolTbles");
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("AnimalterV3.Entity.Concrete.Typee", b =>
@@ -374,7 +377,7 @@ namespace AnimalterV3.Migrations
 
             modelBuilder.Entity("AnimalterV3.Entity.Concrete.UserTbl", b =>
                 {
-                    b.Navigation("UserRolTbles");
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

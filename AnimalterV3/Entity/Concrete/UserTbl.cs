@@ -11,8 +11,6 @@ namespace AnimalterV3.Entity.Concrete
         public string UserPassword { get; set; }
         public string? Mail { get; set; }
         public int? PhoneNumber { get; set; }
-
-        // Bir kullanıcının birden fazla rolü olabilir
         public virtual ICollection<UserRoleTbl> UserRoles { get; set; }
     }
 }

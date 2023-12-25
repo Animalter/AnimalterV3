@@ -8,10 +8,10 @@ namespace AnimalterV3.Entity.Concrete
 {
     public class UserRoleTbl : IEntity
     {
+
         [Key]
         public int UserRoleID { get; set; }
 
-        // Bir kullanıcının birden fazla rolü olabilir
         public int UserId { get; set; }
         public UserTbl User { get; set; }
 

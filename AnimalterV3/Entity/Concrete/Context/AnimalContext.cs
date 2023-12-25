@@ -30,15 +30,16 @@ namespace AnimalterV3.Entity.Concrete.Context
         //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<UserRoleTbl>()
-         .HasKey(ur => new { ur.UserId, ur.RoleId });
+                .HasKey(ur => new { ur.UserId, ur.RoleId });
 
             modelBuilder.Entity<UserRoleTbl>()
                 .HasOne(ur => ur.User)
                 .WithMany(u => u.UserRoles)
                 .HasForeignKey(ur => ur.UserId);
 
-            
             modelBuilder.Entity<UserRoleTbl>()
                 .HasOne(ur => ur.Role)
                 .WithMany(r => r.UserRoles)
