@@ -19,7 +19,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Add(RoleDto role)
         {
             RoleTbl roleTbl = new RoleTbl();
-            role.RoleName = role.RoleName;
+            roleTbl.RoleName = role.RoleName;
             _roleDal.Add(roleTbl);
             return new SuccessReasult();
 
@@ -27,8 +27,11 @@ namespace AnimalterV3.Busssines.Concrete
 
         public IUtilityResult Delete(RoleDto role)
         {
+
             var roleTbl = new RoleTbl();
-            role.RoleName = role.RoleName;
+
+            roleTbl.RoleId= role.RoleId;
+            roleTbl.RoleName = role.RoleName;
             _roleDal.Delete(roleTbl);
             return new SuccessReasult();
         }
@@ -46,7 +49,8 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Update(RoleDto role)
         {
             var roleTbl = new RoleTbl();
-            role.RoleName = role.RoleName;
+            roleTbl.RoleId= role.RoleId;
+            roleTbl.RoleName = role.RoleName;
             _roleDal.Update(roleTbl);
             return new SuccessReasult();
         }

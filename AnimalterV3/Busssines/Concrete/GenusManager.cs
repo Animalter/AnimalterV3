@@ -33,6 +33,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Update(GenusDto genusDto)
         {
             var genus = new Genus();
+            genus.GenusId=genusDto.GenusId;
             genus.Genuss = genusDto.Genuss;
              _genusDal.Update(genus);
             return new SuccessReasult();
@@ -40,6 +41,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Delete(GenusDto genusDto)
         {
             var genus = new Genus();
+            genus.GenusId= genusDto.GenusId;
             genus.Genuss= genusDto.Genuss;  
             _genusDal.Delete(genus);
             return new SuccessReasult();

@@ -33,6 +33,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Update(AdoptionStatusDto adoptionStatusDto)
         {
             AdoptionStatus adoptionStatus = new AdoptionStatus();
+            adoptionStatus.AdoptionId = adoptionStatusDto.AdoptionStatusId;
             adoptionStatus.AdoptionDate = adoptionStatusDto.AdoptionDate;
             _adoptionStatusDal.Update(adoptionStatus);
             return new SuccessReasult();
@@ -40,6 +41,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Delete(AdoptionStatusDto adoptionStatusDto)
         {
             AdoptionStatus adoptionStatus = new AdoptionStatus();
+            adoptionStatus.AdoptionId= adoptionStatusDto.AdoptionStatusId;
             adoptionStatus.AdoptionDate = adoptionStatusDto.AdoptionDate;
             _adoptionStatusDal.Delete(adoptionStatus);
             return new SuccessReasult();

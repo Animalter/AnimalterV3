@@ -4,6 +4,7 @@ namespace AnimalterV3.Dto
 {
     public class CustomerDto
     {
+        public int CustomerId { get; set; }
         public string Customername { get; set; }
         public string CustomerPassword { get; set; }
 

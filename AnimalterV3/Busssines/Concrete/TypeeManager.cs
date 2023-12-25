@@ -20,6 +20,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Add(TypeeDto typeeDto)
         {
             Typee typee = new Typee();
+
             typee.Typeee = typeeDto.Typeee;
             _typeeDal.Add(typee);
             return new SuccessReasult();

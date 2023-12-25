@@ -31,6 +31,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Delete(CustomerDto customerDto)
         {
             var customer = new Customer();
+            customer.CustomerId=customerDto.CustomerId;
             customer.CustomerMail = customerDto.CustomerMail;
             customer.CustomerPassword = customerDto.CustomerPassword;
             customer.CustomerPhoneNumber = customerDto.CustomerPhoneNumber;
@@ -50,6 +51,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Update(CustomerDto customerDto)
         {
             var customer = new Customer();
+            customer.CustomerId= customerDto.CustomerId;
             customer.CustomerMail = customerDto.CustomerMail;
             customer.CustomerPassword = customerDto.CustomerPassword;
             customer.CustomerPhoneNumber=customerDto.CustomerPhoneNumber;
