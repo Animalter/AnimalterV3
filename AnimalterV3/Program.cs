@@ -8,6 +8,8 @@ using AnimalterV3.Entity.Concrete.EntityFramework;
 using AnimalterV3.Entity.Entites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.FileProviders;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
