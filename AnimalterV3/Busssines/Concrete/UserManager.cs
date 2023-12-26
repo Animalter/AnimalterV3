@@ -26,6 +26,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Add(UserDto user)
         {
             UserTbl userTbl = new UserTbl();
+            userTbl.RoleId = user.RoleId;
             userTbl.UserName = user.UserName;
             userTbl.UserPassword = user.UserPassword;
             userTbl.PhoneNumber = user.PhoneNumber;
@@ -37,7 +38,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Delete(UserDto user)
         {
             UserTbl userTbl = new UserTbl();
-
+            userTbl.RoleId = user.RoleId;
             userTbl.UserId = user.UserId;
             userTbl.UserName = user.UserName;
             userTbl.UserPassword = user.UserPassword;
@@ -60,7 +61,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Update(UserDto user)
         {
             UserTbl userTbl = new UserTbl();
-
+            userTbl.RoleId = user.RoleId;
             userTbl.UserId = user.UserId;
             userTbl.UserName = user.UserName;
             userTbl.UserPassword = user.UserPassword;
