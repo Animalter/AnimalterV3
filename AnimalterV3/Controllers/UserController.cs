@@ -28,7 +28,7 @@ namespace AnimalterV3.Controllers
         {
             return _userService.GetById(Id);
         }
-        [HttpPost("Register")]
+        [HttpPost("Admin_Register")]
         public IActionResult Register(UserDto user)
         {
             var result = _userService.Register(user);
@@ -42,6 +42,25 @@ namespace AnimalterV3.Controllers
                 return BadRequest(result.Message);
             }
         }
+
+        [HttpPost("Customer_Register")]
+        public IActionResult RegisterCustomer(UserDto user)
+        {
+            var result = _userService.Register(user);
+
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
+        }
+        // public async Task<IUtilityResult> RegisterCustomer(UserDto user)
+        //{
+        //    return await _userService.Register(user);
+        //}
 
 
         [HttpGet]

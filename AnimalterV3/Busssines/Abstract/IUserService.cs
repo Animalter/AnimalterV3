@@ -14,5 +14,6 @@ namespace AnimalterV3.Busssines.Abstract
         IUtilityResult Delete(UserDto user);
         AccountDto Login(string UserName, string Password);
         IUtilityResult Register(UserDto user);
+        IUtilityResult RegisterCustomer(UserDto user);
     }
 }

@@ -12,5 +12,6 @@ namespace AnimalterV3.Busssines.Abstract
             IUtilityResult Add(AnimalDto animal);
             IUtilityResult Update(AnimalDto animal);
             IUtilityResult Delete(AnimalDto animal);
+
     }
 }

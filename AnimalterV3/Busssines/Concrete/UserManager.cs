@@ -72,7 +72,6 @@ namespace AnimalterV3.Busssines.Concrete
             return new SuccessReasult();
         }
 
-
         public AccountDto Login(string UserName, string Password)
         {
             var Login = (from u in _userDal.GetAll().Where(x => (x.UserName == UserName.Trim() || x.Mail == UserName) && x.UserPassword.Trim() == Password.Trim())
@@ -113,6 +112,31 @@ namespace AnimalterV3.Busssines.Concrete
             _userDal.Add(newUser);
             return new SuccessReasult("Kayıt işlemi başarılı.");
         }
+
+        public IUtilityResult RegisterCustomer(UserDto user)
+        {
+            
+            var existingUser = _userDal.GetAll(u => u.UserName == user.UserName || u.Mail == user.Mail).FirstOrDefault();
+            if (existingUser != null)
+            {
+                return new ErrorResult("Kullanıcı adı veya e-posta adresi zaten kullanılıyor.");
+            }
+
+           
+            var newUser = new UserTbl
+            {
+                
+                UserName = user.UserName,
+                UserPassword = user.UserPassword,
+                PhoneNumber = user.PhoneNumber,
+                Mail = user.Mail
+                // Diğer özellikler
+            };
+
+            _userDal.Add(newUser);
+            return new SuccessReasult("Kayıt işlemi başarılı.");
+        }
+  
 
     }
 }
