@@ -26,7 +26,8 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Add(UserDto user)
         {
             UserTbl userTbl = new UserTbl();
-            userTbl.RoleId = user.RoleId;
+
+            userTbl.RoleId=user.RoleId;
             userTbl.UserName = user.UserName;
             userTbl.UserPassword = user.UserPassword;
             userTbl.PhoneNumber = user.PhoneNumber;
@@ -61,7 +62,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Update(UserDto user)
         {
             UserTbl userTbl = new UserTbl();
-            userTbl.RoleId = user.RoleId;
+            userTbl.UserRoles = userTbl.UserRoles;
             userTbl.UserId = user.UserId;
             userTbl.UserName = user.UserName;
             userTbl.UserPassword = user.UserPassword;
@@ -88,6 +89,29 @@ namespace AnimalterV3.Busssines.Concrete
                              UserEmail = u.Mail
                          }).FirstOrDefault();
             return Login;
+        }
+        public IUtilityResult Register(UserDto user)
+        {
+           
+            var existingUser = _userDal.GetAll(u => u.UserName == user.UserName || u.Mail == user.Mail).FirstOrDefault();
+            if (existingUser != null)
+            {
+                return new ErrorResult("Kullanıcı adı veya e-posta adresi zaten kullanılıyor.");
+            }
+
+            
+            var newUser = new UserTbl
+            {
+                RoleId = user.RoleId,
+                UserName = user.UserName,
+                UserPassword = user.UserPassword,
+                PhoneNumber = user.PhoneNumber,
+                Mail = user.Mail
+               
+            };
+
+            _userDal.Add(newUser);
+            return new SuccessReasult("Kayıt işlemi başarılı.");
         }
 
     }

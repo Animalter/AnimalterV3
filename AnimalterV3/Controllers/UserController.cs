@@ -28,6 +28,22 @@ namespace AnimalterV3.Controllers
         {
             return _userService.GetById(Id);
         }
+        [HttpPost("Register")]
+        public IActionResult Register(UserDto user)
+        {
+            var result = _userService.Register(user);
+
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
+        }
+
+
         [HttpGet]
         public async Task<List<UserTbl>> GetAllUser()
         {
