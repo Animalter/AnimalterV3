@@ -3,7 +3,7 @@ using AnimalterV3.Entity.Concrete;
 
 namespace AnimalterV3.Entity.Abstract.DataAcces.Abstract
 {
-    public interface IPetOwnerDal : IEntityRepository<PetOwner>
+    public interface IImageDal : IEntityRepository<Image>
     {
     }
 }

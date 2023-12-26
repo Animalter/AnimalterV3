@@ -4,7 +4,7 @@ using AnimalterV3.Entity.Entites;
 
 namespace AnimalterV3.Entity.Concrete.EntityFramework
 {
-    public class EfPetOwner : EfEntityRepository<PetOwner, AnimalContext>, IPetOwnerDal
+    public class EfImageDal : EfEntityRepository<Image, AnimalContext>, IImageDal
     {
     }
 }

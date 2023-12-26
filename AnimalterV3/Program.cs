@@ -42,6 +42,12 @@ builder.Services.AddTransient<IUserDal, EfUserDal>();
 builder.Services.AddTransient<IRoleService, RoleManager>();
 builder.Services.AddTransient<IRoleDal, EfRoleDal>();
 
+builder.Services.AddTransient<IImageService, ImageManager>();
+builder.Services.AddTransient<IImageDal, EfImageDal>();
+
+builder.Services.AddTransient<IPetOwnerService, PetOwnerManager>();
+builder.Services.AddTransient<IPetOwnerDal, EfPetOwner>();
+
 builder.Services.AddTransient<IUserRoleDal, EfUserRoleDal>();
 #endregion
 var app = builder.Build();

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 
+
+
+
 namespace AnimalterV3.Entity.Concrete.Context
 {
     public class AnimalContext : DbContext
@@ -24,10 +27,9 @@ namespace AnimalterV3.Entity.Concrete.Context
         public DbSet<RoleTbl> RoleTbls { get; set; }
         public DbSet<UserRoleTbl> UserRoles { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<UserRoleTbl>().HasOne(ur => ur.)
-        //}
+        public DbSet<Image> Images { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
