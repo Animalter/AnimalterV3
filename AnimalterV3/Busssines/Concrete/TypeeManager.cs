@@ -33,7 +33,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Update(TypeeDto typeeDto)
         {
             var typee = new Typee();
-            typee.TypeId = typeeDto.Id;
+            typee.TypeeId = typeeDto.TypeeId;
             typee.Typeee = typeeDto.Typeee;
             _typeeDal.Update(typee);
             return new SuccessReasult();
@@ -41,13 +41,13 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Delete(TypeeDto typeeDto)
         {
             var typee = new Typee();
-            typee.TypeId = typeeDto.Id;
+            typee.TypeeId = typeeDto.TypeeId;
             _typeeDal.Delete(typee);
             return new SuccessReasult();
         }
         public Typee GetById(int id)
         {
-            return _typeeDal.GetAll(x => x.TypeId == id) != null ? _typeeDal.GetAll(x => x.TypeId == id).FirstOrDefault() : new Typee();
+            return _typeeDal.GetAll(x => x.TypeeId == id) != null ? _typeeDal.GetAll(x => x.TypeeId == id).FirstOrDefault() : new Typee();
         }
     }
 }

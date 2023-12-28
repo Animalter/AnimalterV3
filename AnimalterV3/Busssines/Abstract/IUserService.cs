@@ -11,7 +11,7 @@ namespace AnimalterV3.Busssines.Abstract
         List<UserTbl> Getall();
         IUtilityResult Add(UserDto user);
         IUtilityResult Update(UserDto user);
-        IUtilityResult Delete(UserDto user);
+        IUtilityResult Delete(int UserId);
         AccountDto Login(string UserName, string Password);
         IUtilityResult Register(UserDto user);
         IUtilityResult RegisterCustomer(UserDto user);

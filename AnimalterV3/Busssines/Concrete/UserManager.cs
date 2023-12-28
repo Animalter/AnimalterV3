@@ -27,7 +27,7 @@ namespace AnimalterV3.Busssines.Concrete
         {
             UserTbl userTbl = new UserTbl();
 
-            userTbl.RoleId=user.RoleId;
+            userTbl.RoleId = user.RoleId;
             userTbl.UserName = user.UserName;
             userTbl.UserPassword = user.UserPassword;
             userTbl.PhoneNumber = user.PhoneNumber;
@@ -36,16 +36,13 @@ namespace AnimalterV3.Busssines.Concrete
             return new SuccessReasult();
         }
 
-        public IUtilityResult Delete(UserDto user)
+        public IUtilityResult Delete(int UserId)
         {
-            UserTbl userTbl = new UserTbl();
-            
-            userTbl.UserId = user.UserId;
-            userTbl.UserName = user.UserName;
-            userTbl.UserPassword = user.UserPassword;
-            userTbl.PhoneNumber = user.PhoneNumber;
-            userTbl.Mail = user.Mail;
-
+            UserTbl userTbl = _userDal.GetAll(x => x.UserId == UserId).FirstOrDefault();
+            if (userTbl == null)
+            {
+                return new ErrorResult("User Bulunamadı");
+            }
             _userDal.Delete(userTbl);
             return new SuccessReasult();
         }
@@ -75,9 +72,9 @@ namespace AnimalterV3.Busssines.Concrete
         public AccountDto Login(string UserName, string Password)
         {
             var Login = (from u in _userDal.GetAll().Where(x => (x.UserName == UserName.Trim() || x.Mail == UserName) && x.UserPassword.Trim() == Password.Trim())
-                         join ur in _userRoleDal.GetAll() on u.UserId equals ur.UserId into gj
-                         from x in gj.DefaultIfEmpty()
-                         join r in _roleDal.GetAll() on x.RoleId equals r.RoleId into bjk
+                             //join ur in _userRoleDal.GetAll() on u.UserId equals ur.UserId into gj
+                             //from x in gj.DefaultIfEmpty()
+                         join r in _roleDal.GetAll() on u.RoleId equals r.RoleId into bjk
                          from y in bjk.DefaultIfEmpty()
                          select new AccountDto
                          {
@@ -91,14 +88,14 @@ namespace AnimalterV3.Busssines.Concrete
         }
         public IUtilityResult Register(UserDto user)
         {
-           
+
             var existingUser = _userDal.GetAll(u => u.UserName == user.UserName || u.Mail == user.Mail).FirstOrDefault();
             if (existingUser != null)
             {
                 return new ErrorResult("Kullanıcı adı veya e-posta adresi zaten kullanılıyor.");
             }
 
-            
+
             var newUser = new UserTbl
             {
                 RoleId = user.RoleId,
@@ -106,26 +103,25 @@ namespace AnimalterV3.Busssines.Concrete
                 UserPassword = user.UserPassword,
                 PhoneNumber = user.PhoneNumber,
                 Mail = user.Mail
-               
-            };
 
+            };
             _userDal.Add(newUser);
             return new SuccessReasult("Kayıt işlemi başarılı.");
         }
 
         public IUtilityResult RegisterCustomer(UserDto user)
         {
-            
+
             var existingUser = _userDal.GetAll(u => u.UserName == user.UserName || u.Mail == user.Mail).FirstOrDefault();
             if (existingUser != null)
             {
                 return new ErrorResult("Kullanıcı adı veya e-posta adresi zaten kullanılıyor.");
             }
 
-           
+
             var newUser = new UserTbl
             {
-                
+
                 UserName = user.UserName,
                 UserPassword = user.UserPassword,
                 PhoneNumber = user.PhoneNumber,
@@ -136,7 +132,7 @@ namespace AnimalterV3.Busssines.Concrete
             _userDal.Add(newUser);
             return new SuccessReasult("Kayıt işlemi başarılı.");
         }
-  
+
 
     }
 }

@@ -28,6 +28,7 @@ namespace AnimalterV3.Entity.Concrete.Context
         public DbSet<UserRoleTbl> UserRoles { get; set; }
 
         public DbSet<Image> Images { get; set; }
+        public DbSet<PetOwner> petOwners { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

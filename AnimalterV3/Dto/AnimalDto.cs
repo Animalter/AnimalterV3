@@ -6,7 +6,7 @@ namespace AnimalterV3.Dto
     {
         public int AnimalId { get; set; }
         public int GenusId { get; set; }
-        public int TypeId { get; set; }
+        public int TypeeId { get; set; }
         public string AnimalName { get; set; }
 
         public int AnimalAgeYear { get; set; }
@@ -18,7 +18,7 @@ namespace AnimalterV3.Dto
    
         public string AnimaiImageUrl { get; set; }
 
-
+        public int AdoptionStatusId { get; set; }
         public string AnimalGender { get; set; }
     }
 }

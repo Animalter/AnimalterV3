@@ -32,14 +32,16 @@ namespace AnimalterV3.Busssines.Concrete
     public class AnimalManager : IAnimalService
     {
         private IAnimalDal _animalDal;
-        public AnimalManager(IAnimalDal animalDal)
+        private IAdoptionStatusDal _adoptionStatusDal;
+        public AnimalManager(IAnimalDal animalDal, IAdoptionStatusDal adoptionStatusDal)
         {
             _animalDal = animalDal;
+            _adoptionStatusDal = adoptionStatusDal;
         }
         public IUtilityResult Add(AnimalDto animalDto)
         {
             Animal animal = new Animal();
-            animal.TypeId = animalDto.TypeId;
+            animal.TypeId = animalDto.TypeeId;
             animal.GenusId = animalDto.GenusId;
             animal.AnimalName = animalDto.AnimalName;
             animal.AnimalAgeYear = animalDto.AnimalAgeYear;
@@ -52,14 +54,21 @@ namespace AnimalterV3.Busssines.Concrete
 
 
         }
-        public List<Animal> Getall()
+        public List<AnimalDto> Getall()
         {
-            return _animalDal.GetAll();
+            var result = (from a in _animalDal.GetAll()
+                          join ad in _adoptionStatusDal.GetAll() on a.AnimalId equals ad.AnimalId
+                            select new AnimalDto {
+                            AdoptionStatusId=ad.AdoptionId,
+                            AnimalName=a.AnimalName
+
+                          }).ToList();
+            return result;
         }
         public IUtilityResult Update(AnimalDto animalDto)
         {
             var animal = new Animal();
-            animal.TypeId = animalDto.TypeId;
+            animal.TypeId = animalDto.TypeeId;
             animal.GenusId = animalDto.GenusId;
             animal.AnimalId = animalDto.AnimalId;
             animal.AnimalName = animalDto.AnimalName;
@@ -74,7 +83,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Delete(AnimalDto animalDto)
         {
             var animal = new Animal();
-            animal.TypeId = animalDto.TypeId;
+            animal.TypeId = animalDto.TypeeId;
             animal.AnimalId = animalDto.AnimalId;
             animal.AnimalName = animalDto.AnimalName;
             animal.AnimalAgeYear = animalDto.AnimalAgeYear;
@@ -92,11 +101,11 @@ namespace AnimalterV3.Busssines.Concrete
         }
 
 
-        public List<Animal> GetFilteredAnimals( string animalName, int? genusId,   int? typeId, int? ageYear ,int? ageMouth)
+        public List<Animal> GetFilteredAnimals(string animalName, int? genusId, int? typeId, int? ageYear, int? ageMouth)
         {
             var filter = PredicateBuilder.True<Animal>();
 
-            
+
             if (genusId.HasValue)
             {
                 filter = filter.And(x => x.GenusId == genusId.Value);
@@ -107,13 +116,13 @@ namespace AnimalterV3.Busssines.Concrete
                 filter = filter.And(x => x.TypeId == typeId.Value);
             }
 
-            
+
             if (!string.IsNullOrEmpty(animalName))
             {
                 filter = filter.And(x => x.AnimalName.Contains(animalName));
             }
 
-            
+
             if (ageYear.HasValue)
             {
                 filter = filter.And(x => x.AnimalAgeYear == ageYear.Value);
@@ -125,6 +134,11 @@ namespace AnimalterV3.Busssines.Concrete
             }
 
             return _animalDal.GetAll(filter);
+        }
+
+        List<Animal> IAnimalService.Getall()
+        {
+            throw new NotImplementedException();
         }
     }
 }

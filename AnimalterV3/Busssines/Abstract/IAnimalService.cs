@@ -12,7 +12,7 @@ namespace AnimalterV3.Busssines.Abstract
             IUtilityResult Add(AnimalDto animal);
             IUtilityResult Update(AnimalDto animal);
             IUtilityResult Delete(AnimalDto animal);
-        List<Animal> GetFilteredAnimals(string animalName, int? genusId, int? typeId, int? ageyear,int? agemounth);
+        List<Animal> GetFilteredAnimals(string animalName, int? genusId, int? typeeId, int? ageyear,int? agemounth);
 
     }
 }

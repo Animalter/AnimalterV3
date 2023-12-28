@@ -15,12 +15,14 @@ namespace AnimalterV3.Controllers
     {
         #region Fields
         private readonly IImageService _ımageService;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         #endregion
 
         #region ctor
-        public ImageController(IImageService ımageService)
+        public ImageController(IImageService ımageService, IWebHostEnvironment hostingEnvironment)
         {
-            _ımageService = _ımageService;
+            _ımageService = ımageService;
+            _hostingEnvironment = hostingEnvironment;
         }
         #endregion
 
@@ -31,11 +33,6 @@ namespace AnimalterV3.Controllers
         {
             return _ımageService.GetById(Id);
         }
-        //[HttpGet]
-        //public async Task<List<Image>> GetAllImage()
-        //{
-        //    return _ımageService.Getall();
-        //}
         [HttpPost]
         public async Task<IUtilityResult> AdImage(ImageDto ımageDto)
         {
@@ -52,33 +49,45 @@ namespace AnimalterV3.Controllers
             return _ımageService.Delete(ımageDto);
         }
 
-        #endregion}
+        [HttpPost("upload")]
+        public async Task<string> UploadImage(IFormFile formFile)
+        {
+            string defaultPath = System.IO.Directory.GetCurrentDirectory();
+            if (formFile == null || formFile.Length == 0)
+            {
+                return "Invalid file";
+            }
+            using (var ms = new MemoryStream())
+            {
+                var fileName = System.IO.Path.GetFileName(formFile.FileName);
+                var fileNameWithOutExtension = System.IO.Path.GetFileNameWithoutExtension(formFile.FileName);
+                var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+                var fileExtension = System.IO.Path.GetExtension(fileName);
+                var newFileName = String.Concat(myUniqueFileName, fileExtension);
 
+                if (formFile != null)
+                {
+                    var Upload = System.IO.Path.Combine(defaultPath, @"Images\", newFileName);
+                    formFile.CopyTo(new FileStream(Upload, FileMode.Create));
+                }
+                return newFileName;
+            }
+        }
+        [HttpGet("imageName")]
+        public IActionResult GetImage(string imageName)
+        {
+            string defaultPath = System.IO.Directory.GetCurrentDirectory();
+            var imagePath = Path.Combine(defaultPath, @"Images\", imageName);
 
+            if (System.IO.File.Exists(imagePath))
+            {
+                var imageBytes = System.IO.File.ReadAllBytes(imagePath);
+                return File(imageBytes, "image/jpg"); // veya uygun olan MIME türünü belirtin
+            }
 
-        //[HttpPost("upload")]
-        //public async Task<IActionResult> UploadImage([FromForm] IFormFile file)
-        //{
-        //    if (file == null || file.Length == 0)
-        //        return BadRequest("Invalid file");
-
-        //    using (var memoryStream = new MemoryStream())
-        //    {
-        //        await file.CopyToAsync(memoryStream);
-        //        var imageData = memoryStream.ToArray();
-
-        //        var image = new Image
-        //        {
-        //            FileName = file.FileName,
-        //            Data = imageData
-        //        };
-
-        //        _context.Images.Add(image);
-        //        await _context.SaveChangesAsync();
-
-        //        return Ok("Image uploaded successfully");
-        //    }
-        //}
+            return NotFound();
+        }
+        #endregion
 
         //[HttpGet("{id}")]
         //public async Task<IActionResult> GetImage(int id)

@@ -2,7 +2,7 @@
 {
     public class TypeeDto
     {
-        public int Id { get; set; }
+        public int TypeeId { get; set; }
         public string Typeee { get; set; }
     }
 }

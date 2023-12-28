@@ -6,7 +6,7 @@ namespace AnimalterV3.Entity.Concrete
     public class Typee : IEntity
     {
         [Key]
-        public int TypeId { get; set; }
+        public int TypeeId { get; set; }
 
         [StringLength(50)]
         public string Typeee { get; set; }

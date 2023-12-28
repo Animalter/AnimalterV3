@@ -53,5 +53,11 @@ namespace AnimalterV3.Busssines.Concrete
             return _ımageDal.GetAll(x => x.Id == id) != null ? _ımageDal.GetAll(x => x.Id == id).FirstOrDefault() : new Image();
         }
 
+        public bool UploadImage(IFormFile formFile)
+        {
+
+
+            return true;
+        }
     }
 }

@@ -79,9 +79,9 @@ namespace AnimalterV3.Controllers
             return _userService.Update(user);
         }
         [HttpDelete]
-        public async Task<IUtilityResult> deleteUser(UserDto user)
+        public async Task<IUtilityResult> deleteUser(int UserId)
         {
-            return _userService.Delete(user);
+            return _userService.Delete(UserId);
         }
 
         #endregion

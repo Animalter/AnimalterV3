@@ -12,6 +12,6 @@ namespace AnimalterV3.Busssines.Abstract
         IUtilityResult Add(ImageDto ımage);
         IUtilityResult Update(ImageDto ımage);
         IUtilityResult Delete(ImageDto ımage);
-
+        bool UploadImage(IFormFile formFile);
     }
 }

@@ -38,8 +38,8 @@ namespace AnimalterV3.Entity.Concrete
         public Genus Genus { get; set; }
 
         public int TypeId { get; set; }
-        [ForeignKey("(TypeId)")]
-        public string Typeee { get; set; }
+        [ForeignKey("TypeId")]
+        public Typee Typeee { get; set; }
 
 
 

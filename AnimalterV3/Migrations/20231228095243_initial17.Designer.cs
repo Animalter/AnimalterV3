@@ -4,6 +4,7 @@ using AnimalterV3.Entity.Concrete.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimalterV3.Migrations
 {
     [DbContext(typeof(AnimalContext))]
-    partial class AnimalContextModelSnapshot : ModelSnapshot
+    [Migration("20231228095243_initial17")]
+    partial class initial17
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,31 +219,6 @@ namespace AnimalterV3.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OperationClaims");
-                });
-
-            modelBuilder.Entity("AnimalterV3.Entity.Concrete.PetOwner", b =>
-                {
-                    b.Property<int>("PetownerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PetownerId"));
-
-                    b.Property<DateTime?>("AdoptionDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("AdoptionStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AnimalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PetownerId");
-
-                    b.ToTable("petOwners");
                 });
 
             modelBuilder.Entity("AnimalterV3.Entity.Concrete.RoleTbl", b =>

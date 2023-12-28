@@ -4,6 +4,7 @@ using AnimalterV3.Entity.Concrete.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimalterV3.Migrations
 {
     [DbContext(typeof(AnimalContext))]
-    partial class AnimalContextModelSnapshot : ModelSnapshot
+    [Migration("20231228094217_initial15")]
+    partial class initial15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,6 +88,9 @@ namespace AnimalterV3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnimalId"));
 
+                    b.Property<int>("(TypeId)")
+                        .HasColumnType("int");
+
                     b.Property<string>("AnimaiImageUrl")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -119,9 +125,9 @@ namespace AnimalterV3.Migrations
 
                     b.HasKey("AnimalId");
 
-                    b.HasIndex("GenusId");
+                    b.HasIndex("(TypeId)");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("GenusId");
 
                     b.ToTable("Animals");
                 });
@@ -216,31 +222,6 @@ namespace AnimalterV3.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OperationClaims");
-                });
-
-            modelBuilder.Entity("AnimalterV3.Entity.Concrete.PetOwner", b =>
-                {
-                    b.Property<int>("PetownerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PetownerId"));
-
-                    b.Property<DateTime?>("AdoptionDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("AdoptionStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AnimalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PetownerId");
-
-                    b.ToTable("petOwners");
                 });
 
             modelBuilder.Entity("AnimalterV3.Entity.Concrete.RoleTbl", b =>
@@ -369,15 +350,15 @@ namespace AnimalterV3.Migrations
 
             modelBuilder.Entity("AnimalterV3.Entity.Concrete.Animal", b =>
                 {
-                    b.HasOne("AnimalterV3.Entity.Concrete.Genus", "Genus")
-                        .WithMany("Animals")
-                        .HasForeignKey("GenusId")
+                    b.HasOne("AnimalterV3.Entity.Concrete.Typee", "Typeee")
+                        .WithMany()
+                        .HasForeignKey("(TypeId)")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AnimalterV3.Entity.Concrete.Typee", "Typeee")
-                        .WithMany()
-                        .HasForeignKey("TypeId")
+                    b.HasOne("AnimalterV3.Entity.Concrete.Genus", "Genus")
+                        .WithMany("Animals")
+                        .HasForeignKey("GenusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
