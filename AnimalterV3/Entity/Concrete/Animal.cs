@@ -1,4 +1,5 @@
 ﻿using AnimalterV3.Entity.Abstract.Entites;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -35,6 +36,12 @@ namespace AnimalterV3.Entity.Concrete
         public int GenusId { get; set; }
         [ForeignKey("GenusId")]
         public Genus Genus { get; set; }
+
+        public int TypeId { get; set; }
+        [ForeignKey("(TypeId)")]
+        public string Typeee { get; set; }
+
+
 
         public ICollection<AdoptionStatus> AdoptionStatuses { get; set; }
     }

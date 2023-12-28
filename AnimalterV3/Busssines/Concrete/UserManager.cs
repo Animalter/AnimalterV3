@@ -39,7 +39,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Delete(UserDto user)
         {
             UserTbl userTbl = new UserTbl();
-            userTbl.RoleId = user.RoleId;
+            
             userTbl.UserId = user.UserId;
             userTbl.UserName = user.UserName;
             userTbl.UserPassword = user.UserPassword;

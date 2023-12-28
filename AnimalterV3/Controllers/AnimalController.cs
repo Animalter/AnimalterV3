@@ -46,6 +46,16 @@ namespace AnimalterV3.Controllers
         {
             return _animalService.Delete(animal);
         }
+        [HttpGet("GetFilteredAnimals")]
+        public async Task<List<Animal>> GetFilteredAnimals(
+    string animalName,
+    int? genusId,
+    int? typeId,
+    int? ageYear,
+    int? ageMouth)
+        {
+            return _animalService.GetFilteredAnimals(animalName, genusId, typeId, ageYear, ageMouth);
+        }
 
 
         #endregion
