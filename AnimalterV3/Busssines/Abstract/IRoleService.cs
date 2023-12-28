@@ -10,6 +10,6 @@ namespace AnimalterV3.Busssines.Abstract
         List<RoleTbl> GetAll();
         IUtilityResult Add(RoleDto role);
         IUtilityResult Update(RoleDto role);
-        IUtilityResult Delete(RoleDto role);
+        IUtilityResult Delete(int RoleId);
     }
 }

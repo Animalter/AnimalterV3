@@ -25,14 +25,24 @@ namespace AnimalterV3.Busssines.Concrete
 
         }
 
-        public IUtilityResult Delete(RoleDto role)
+        //public IUtilityResult Delete(RoleDto role)
+        //{
+
+        //    var roleTbl = new RoleTbl();
+
+        //    roleTbl.RoleId= role.RoleId;
+        //    roleTbl.RoleName = role.RoleName;
+        //    _roleDal.Delete(roleTbl);
+        //    return new SuccessReasult();
+        //}
+        public IUtilityResult Delete(int RoleId)
         {
-
-            var roleTbl = new RoleTbl();
-
-            roleTbl.RoleId= role.RoleId;
-            roleTbl.RoleName = role.RoleName;
-            _roleDal.Delete(roleTbl);
+            RoleTbl role = _roleDal.GetAll(x => x.RoleId == RoleId).FirstOrDefault();
+            if (role == null)
+            {
+                return new ErrorResult("rol Bulunamadı");
+            }
+            _roleDal.Delete(role);
             return new SuccessReasult();
         }
 

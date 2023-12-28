@@ -46,7 +46,7 @@ namespace AnimalterV3.Controllers
             return _adoptionStatusService.Update(adoptionStatus);
         }
         [HttpDelete]
-        public async Task<IUtilityResult> deleteAdoption(AdoptionStatusDto adoptionStatus)
+        public async Task<IUtilityResult> deleteAdoption(int adoptionStatus)
         {
             return _adoptionStatusService.Delete(adoptionStatus);
         }

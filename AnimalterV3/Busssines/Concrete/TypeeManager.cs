@@ -38,10 +38,20 @@ namespace AnimalterV3.Busssines.Concrete
             _typeeDal.Update(typee);
             return new SuccessReasult();
         }
-        public IUtilityResult Delete(TypeeDto typeeDto)
+        //public IUtilityResult Delete(TypeeDto typeeDto)
+        //{
+        //    var typee = new Typee();
+        //    typee.TypeeId = typeeDto.TypeeId;
+        //    _typeeDal.Delete(typee);
+        //    return new SuccessReasult();
+        //}
+        public IUtilityResult Delete(int TypeeId)
         {
-            var typee = new Typee();
-            typee.TypeeId = typeeDto.TypeeId;
+            Typee typee = _typeeDal.GetAll(x => x.TypeeId == TypeeId).FirstOrDefault();
+            if (typee == null)
+            {
+                return new ErrorResult("tür Bulunamadı");
+            }
             _typeeDal.Delete(typee);
             return new SuccessReasult();
         }

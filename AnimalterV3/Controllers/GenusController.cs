@@ -45,7 +45,7 @@ namespace AnimalterV3.Controllers
             return _genusService.Update(genus);
         }
         [HttpDelete]
-        public async Task<IUtilityResult> deleteGenus(GenusDto genus)
+        public async Task<IUtilityResult> deleteGenus(int genus)
         {
             return _genusService.Delete(genus);
         }

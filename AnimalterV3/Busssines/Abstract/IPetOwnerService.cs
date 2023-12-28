@@ -10,6 +10,6 @@ namespace AnimalterV3.Busssines.Abstract
         List<PetOwner> Getall();
         IUtilityResult Add(PetOwnerDto petOwnerDto);
         IUtilityResult Update(PetOwnerDto petOwnerDto);
-        IUtilityResult Delete(PetOwnerDto petOwnerDto);
+        IUtilityResult Delete(int  PetOwnerId);
     }
 }

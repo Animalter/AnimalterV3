@@ -11,6 +11,6 @@ namespace AnimalterV3.Busssines.Abstract
         List<Customer> Getall();
         IUtilityResult Add(CustomerDto customer);
         IUtilityResult Update(CustomerDto customer);
-        IUtilityResult Delete(CustomerDto customer);
+        IUtilityResult Delete(int CustomerId);
     }
 }

@@ -80,20 +80,32 @@ namespace AnimalterV3.Busssines.Concrete
             _animalDal.Update(animal);
             return new SuccessReasult();
         }
-        public IUtilityResult Delete(AnimalDto animalDto)
+        //public IUtilityResult Delete(AnimalDto animalDto)
+        //{
+        //    var animal = new Animal();
+        //    animal.TypeId = animalDto.TypeeId;
+        //    animal.AnimalId = animalDto.AnimalId;
+        //    animal.AnimalName = animalDto.AnimalName;
+        //    animal.AnimalAgeYear = animalDto.AnimalAgeYear;
+        //    animal.AnimalAgeMouth = animalDto.AnimalAgeYear;
+        //    animal.AnimaiImageUrl = animalDto.AnimaiImageUrl;
+        //    animal.AnimalAbout = animalDto.AnimalAbout;
+        //    animal.AnimalGender = animalDto.AnimalGender;
+        //    _animalDal.Delete(animal);
+        //    return new SuccessReasult();
+        //}
+        public IUtilityResult Delete(int AnimalId)
         {
-            var animal = new Animal();
-            animal.TypeId = animalDto.TypeeId;
-            animal.AnimalId = animalDto.AnimalId;
-            animal.AnimalName = animalDto.AnimalName;
-            animal.AnimalAgeYear = animalDto.AnimalAgeYear;
-            animal.AnimalAgeMouth = animalDto.AnimalAgeYear;
-            animal.AnimaiImageUrl = animalDto.AnimaiImageUrl;
-            animal.AnimalAbout = animalDto.AnimalAbout;
-            animal.AnimalGender = animalDto.AnimalGender;
+            Animal animal = _animalDal.GetAll(x => x.AnimalId == AnimalId).FirstOrDefault();
+            if (animal == null)
+            {
+                return new ErrorResult("Hayvan Bulunamadı");
+            }
             _animalDal.Delete(animal);
             return new SuccessReasult();
         }
+
+
 
         public Animal GetById(int id)
         {

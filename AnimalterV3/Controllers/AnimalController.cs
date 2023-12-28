@@ -42,7 +42,7 @@ namespace AnimalterV3.Controllers
             return _animalService.Update(animal);
         }
         [HttpDelete]
-        public async Task<IUtilityResult> deleteAnimal(AnimalDto animal)
+        public async Task<IUtilityResult> deleteAnimal(int animal)
         {
             return _animalService.Delete(animal);
         }

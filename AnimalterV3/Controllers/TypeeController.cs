@@ -45,7 +45,7 @@ namespace AnimalterV3.Controllers
             return _typeeService.Update(typeeDto);
         }
         [HttpDelete]
-        public async Task<IUtilityResult> deleteTypee(TypeeDto typeeDto)
+        public async Task<IUtilityResult> deleteTypee(int typeeDto)
         {
             return _typeeService.Delete(typeeDto);
         }

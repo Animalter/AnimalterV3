@@ -11,6 +11,6 @@ namespace AnimalterV3.Busssines.Abstract
         List<Typee> Getall();
         IUtilityResult Add(TypeeDto typee);
         IUtilityResult Update(TypeeDto typee);
-        IUtilityResult Delete(TypeeDto typee);
+        IUtilityResult Delete(int  TypeeId);
     }
 }

@@ -4,6 +4,7 @@ using AnimalterV3.Entity.Concrete.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimalterV3.Migrations
 {
     [DbContext(typeof(AnimalContext))]
-    partial class AnimalContextModelSnapshot : ModelSnapshot
+    [Migration("20231228130249_17")]
+    partial class _17
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,12 +68,17 @@ namespace AnimalterV3.Migrations
                     b.Property<int>("AnimalId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("AdoptionId");
 
                     b.HasIndex("AnimalId");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("UserId");
 
@@ -356,6 +364,12 @@ namespace AnimalterV3.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AnimalterV3.Entity.Concrete.Customer", "Customer")
+                        .WithMany("AdoptionStatuses")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AnimalterV3.Entity.Concrete.UserTbl", "userTbl")
                         .WithMany("AdoptionStatusess")
                         .HasForeignKey("UserId")
@@ -363,6 +377,8 @@ namespace AnimalterV3.Migrations
                         .IsRequired();
 
                     b.Navigation("Animal");
+
+                    b.Navigation("Customer");
 
                     b.Navigation("userTbl");
                 });
@@ -413,6 +429,11 @@ namespace AnimalterV3.Migrations
                 });
 
             modelBuilder.Entity("AnimalterV3.Entity.Concrete.Animal", b =>
+                {
+                    b.Navigation("AdoptionStatuses");
+                });
+
+            modelBuilder.Entity("AnimalterV3.Entity.Concrete.Customer", b =>
                 {
                     b.Navigation("AdoptionStatuses");
                 });

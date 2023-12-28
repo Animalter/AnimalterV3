@@ -28,15 +28,25 @@ namespace AnimalterV3.Busssines.Concrete
             return new SuccessReasult();
         }
 
-        public IUtilityResult Delete(PetOwnerDto petOwnerDto)
-        {
-            PetOwner petOwner = new PetOwner();
-            petOwner.PetownerId = petOwnerDto.PetownerId;
-            petOwner.AdoptionStatusId = petOwnerDto.AdoptionStatusId;
-            petOwner.AdoptionDate = petOwnerDto.AdoptionDate;
-            petOwner.AnimalId = petOwnerDto.AnimalId;
-            petOwner.CustomerId = petOwnerDto.CustomerId;
+        //public IUtilityResult Delete(PetOwnerDto petOwnerDto)
+        //{
+        //    PetOwner petOwner = new PetOwner();
+        //    petOwner.PetownerId = petOwnerDto.PetownerId;
+        //    petOwner.AdoptionStatusId = petOwnerDto.AdoptionStatusId;
+        //    petOwner.AdoptionDate = petOwnerDto.AdoptionDate;
+        //    petOwner.AnimalId = petOwnerDto.AnimalId;
+        //    petOwner.CustomerId = petOwnerDto.CustomerId;
 
+        //    return new SuccessReasult();
+        //}
+        public IUtilityResult Delete(int PetOwnerId)
+        {
+            PetOwner petOwner = _petOwner.GetAll(x => x.PetownerId == PetOwnerId).FirstOrDefault();
+            if (petOwner == null)
+            {
+                return new ErrorResult("User Bulunamadı");
+            }
+            _petOwner.Delete(petOwner);
             return new SuccessReasult();
         }
 

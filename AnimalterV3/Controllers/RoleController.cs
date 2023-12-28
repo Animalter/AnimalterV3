@@ -46,7 +46,7 @@ namespace AnimalterV3.Controllers
             return _roleService.Update(role);
         }
         [HttpDelete]
-        public async Task<IUtilityResult> deleteRole(RoleDto role)
+        public async Task<IUtilityResult> deleteRole(int role)
         {
             return _roleService.Delete(role);
         }

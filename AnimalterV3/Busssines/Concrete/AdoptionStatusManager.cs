@@ -21,9 +21,10 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Add(AdoptionStatusDto adoptionStatusDto)
         {
             AdoptionStatus adoptionStatus = new AdoptionStatus();
+            
             adoptionStatus.AdoptionDate = adoptionStatusDto.AdoptionDate;
             adoptionStatus.AnimalId = adoptionStatusDto.AnimalId;
-            adoptionStatus.CustomerId = adoptionStatusDto.CustomerId;
+            adoptionStatus.UserId = adoptionStatusDto.UserId;
             _adoptionStatusDal.Add(adoptionStatus);
             return new SuccessReasult();
 
@@ -37,15 +38,19 @@ namespace AnimalterV3.Busssines.Concrete
             AdoptionStatus adoptionStatus = new AdoptionStatus();
             adoptionStatus.AnimalId = adoptionStatusDto.AnimalId;
             adoptionStatus.AdoptionDate = adoptionStatusDto.AdoptionDate;
-            adoptionStatus.CustomerId = adoptionStatusDto.CustomerId;
+            adoptionStatus.UserId = adoptionStatusDto.UserId;
             _adoptionStatusDal.Update(adoptionStatus);
             return new SuccessReasult();
         }
-        public IUtilityResult Delete(AdoptionStatusDto adoptionStatusDto)
+        public IUtilityResult Delete(int  adoptionStatusId)
         {
             AdoptionStatus adoptionStatus = new AdoptionStatus();
-            adoptionStatus.AdoptionId= adoptionStatusDto.AdoptionStatusId;
-            adoptionStatus.AdoptionDate = adoptionStatusDto.AdoptionDate;
+            AdoptionStatus adoptionStatus1 = _adoptionStatusDal.GetAll(x => x.AdoptionId ==adoptionStatusId).FirstOrDefault();
+            if (adoptionStatus1 == null)
+            {
+                return new ErrorResult("User Bulunamadı");
+            }
+
             _adoptionStatusDal.Delete(adoptionStatus);
             return new SuccessReasult();
         }

@@ -14,5 +14,7 @@ namespace AnimalterV3.Entity.Concrete
         public string? PhoneNumber { get; set; }
 
         public virtual ICollection<UserRoleTbl> UserRoles { get; set; }
+
+        public ICollection<AdoptionStatus> AdoptionStatusess { get; set; }
     }
 }

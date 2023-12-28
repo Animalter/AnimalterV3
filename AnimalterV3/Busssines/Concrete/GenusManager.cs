@@ -38,11 +38,21 @@ namespace AnimalterV3.Busssines.Concrete
              _genusDal.Update(genus);
             return new SuccessReasult();
         }
-        public IUtilityResult Delete(GenusDto genusDto)
+        //public IUtilityResult Delete(GenusDto genusDto)
+        //{
+        //    var genus = new Genus();
+        //    genus.GenusId= genusDto.GenusId;
+        //    genus.Genuss= genusDto.Genuss;  
+        //    _genusDal.Delete(genus);
+        //    return new SuccessReasult();
+        //}
+        public IUtilityResult Delete(int GenusId)
         {
-            var genus = new Genus();
-            genus.GenusId= genusDto.GenusId;
-            genus.Genuss= genusDto.Genuss;  
+            Genus genus = _genusDal.GetAll(x => x.GenusId == GenusId).FirstOrDefault();
+            if (genus == null)
+            {
+                return new ErrorResult("cins Bulunamadı");
+            }
             _genusDal.Delete(genus);
             return new SuccessReasult();
         }

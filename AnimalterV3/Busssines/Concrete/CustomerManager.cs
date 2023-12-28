@@ -28,14 +28,24 @@ namespace AnimalterV3.Busssines.Concrete
             _customerDal.Add(customer);
             return new SuccessReasult();
         }
-        public IUtilityResult Delete(CustomerDto customerDto)
-        {
-            var customer = new Customer();
-            customer.CustomerId=customerDto.CustomerId;
-            customer.CustomerMail = customerDto.CustomerMail;
-            customer.CustomerPassword = customerDto.CustomerPassword;
-            customer.CustomerPhoneNumber = customerDto.CustomerPhoneNumber;
-            customer.Customername = customerDto.Customername;
+        //public IUtilityResult Delete(CustomerDto customerDto)
+        //{
+        //    var customer = new Customer();
+        //    customer.CustomerId=customerDto.CustomerId;
+        //    customer.CustomerMail = customerDto.CustomerMail;
+        //    customer.CustomerPassword = customerDto.CustomerPassword;
+        //    customer.CustomerPhoneNumber = customerDto.CustomerPhoneNumber;
+        //    customer.Customername = customerDto.Customername;
+        //    _customerDal.Delete(customer);
+        //    return new SuccessReasult();
+        //}
+        public IUtilityResult Delete(int CustomerId)
+        { 
+            Customer customer = _customerDal.GetAll(x => x.CustomerId == CustomerId).FirstOrDefault();
+            if (customer == null)
+            {
+                return new ErrorResult("kullanıcı Bulunamadı");
+            }
             _customerDal.Delete(customer);
             return new SuccessReasult();
         }

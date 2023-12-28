@@ -22,6 +22,6 @@ namespace AnimalterV3.Entity.Concrete
 
 
 
-        public ICollection<AdoptionStatus> AdoptionStatuses { get; set; }
+        //public ICollection<AdoptionStatus> AdoptionStatuses { get; set; }
     }
 }

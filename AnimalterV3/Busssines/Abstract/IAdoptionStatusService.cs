@@ -11,6 +11,6 @@ namespace AnimalterV3.Busssines.Abstract
         List<AdoptionStatus> Getall();
         IUtilityResult Add(AdoptionStatusDto adoptionStatus);
         IUtilityResult Update(AdoptionStatusDto adoptionStatus);
-        IUtilityResult Delete(AdoptionStatusDto adoptionStatus);
+        IUtilityResult Delete(int  AdoptionStatusId);
     }
 }

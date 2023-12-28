@@ -45,7 +45,7 @@ namespace AnimalterV3.Controllers
             return _customerService.Update(customer);
         }
         [HttpDelete]
-        public async Task<IUtilityResult> deleteCustomer(CustomerDto customer)
+        public async Task<IUtilityResult> deleteCustomer(int customer)
         {
             return _customerService.Delete(customer);
         }

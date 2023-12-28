@@ -9,14 +9,17 @@ namespace AnimalterV3.Entity.Concrete
         [Key]
         public int AdoptionId { get; set; }
         public int AnimalId { get; set; }
-        public int CustomerId { get; set; }
+        public int UserId { get; set; }
         public DateTime? AdoptionDate { get; set; }
 
         [ForeignKey("AnimalId")]
         public Animal Animal { get; set; }
 
-        [ForeignKey("CustomerId")]
-        public Customer Customer { get; set; }
+        //[ForeignKey("CustomerId")]
+        //public Customer Customer { get; set; }
+
+        [ForeignKey("UserId")]
+        public UserTbl userTbl { get; set; }
 
     }
 }

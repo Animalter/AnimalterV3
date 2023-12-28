@@ -11,7 +11,7 @@ namespace AnimalterV3.Busssines.Abstract
             List<Genus> Getall();
             IUtilityResult Add(GenusDto genus);
             IUtilityResult Update(GenusDto genus);
-            IUtilityResult Delete(GenusDto genus);
+            IUtilityResult Delete(int  GenusId);
   
     }
 }
