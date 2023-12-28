@@ -27,9 +27,14 @@ namespace AnimalterV3.Controllers
             return _animalService.GetById(Id);
         }
         [HttpGet]
-        public async Task<List<Animal>> GetAllAnimal()
+        public async Task<List<AnimalDto>> GetAllAnimal()
         {
             return _animalService.Getall();
+        }  
+        [HttpGet("GetMyAllAnimal")]
+        public async Task<List<AnimalDto>> GetMyAllAnimal(int UserId)
+        {
+            return _animalService.GetMyAllAnimal(UserId);
         }
         [HttpPost]
         public async Task<IUtilityResult> AddAnimal(AnimalDto animal)

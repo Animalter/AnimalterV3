@@ -33,10 +33,13 @@ namespace AnimalterV3.Busssines.Concrete
     {
         private IAnimalDal _animalDal;
         private IAdoptionStatusDal _adoptionStatusDal;
-        public AnimalManager(IAnimalDal animalDal, IAdoptionStatusDal adoptionStatusDal)
+        private IUserDal _userDal;
+        public AnimalManager(IAnimalDal animalDal, IAdoptionStatusDal adoptionStatusDal, IUserDal userDal)
         {
             _animalDal = animalDal;
             _adoptionStatusDal = adoptionStatusDal;
+            _userDal = userDal;
+
         }
         public IUtilityResult Add(AnimalDto animalDto)
         {
@@ -58,13 +61,64 @@ namespace AnimalterV3.Busssines.Concrete
         {
             var result = (from a in _animalDal.GetAll()
                           join ad in _adoptionStatusDal.GetAll() on a.AnimalId equals ad.AnimalId
-                            select new AnimalDto {
-                            AdoptionStatusId=ad.AdoptionId,
-                            AnimalName=a.AnimalName
+                          select new AnimalDto
+                          {
+                              AnimalId = a.AnimalId,
+                              AdoptionStatusId = ad.AdoptionId,
+                              AnimalName = a.AnimalName,
+                              AnimalAgeYear = a.AnimalAgeYear,
+                              AnimalAgeMouth = a.AnimalAgeYear,
+                              AnimaiImageUrl = a.AnimaiImageUrl,
+                              AnimalAbout = a.AnimalAbout,
+                              AnimalGender = a.AnimalGender,
+                              GenusId = a.GenusId,
+                              TypeeId = a.TypeId
 
                           }).ToList();
             return result;
         }
+        public List<AnimalDto> GetMyAllAnimal(int UserId)
+        {
+            var result = (from u in _userDal.GetAll(x => x.UserId == UserId)
+                          join ad in _adoptionStatusDal.GetAll() on u.UserId equals ad.UserId
+                          join  a in _animalDal.GetAll() on ad.AnimalId equals a.AnimalId
+                          select new AnimalDto
+                          {
+                              AnimalId = a.AnimalId,
+                              AdoptionStatusId = ad.AdoptionId,
+                              AnimalName = a.AnimalName,
+                              AnimalAgeYear = a.AnimalAgeYear,
+                              AnimalAgeMouth = a.AnimalAgeYear,
+                              AnimaiImageUrl = a.AnimaiImageUrl,
+                              AnimalAbout = a.AnimalAbout,
+                              AnimalGender = a.AnimalGender,
+                              GenusId = a.GenusId,
+                              TypeeId = a.TypeId
+
+                          }).ToList();
+            return result;
+        }
+        //public List<AnimalDto> Getall()
+        //{
+        //    var result = (from a in _animalDal.GetAll()
+        //                  join ad in _adoptionStatusDal.GetAll() on a.AnimalId equals ad.AnimalId
+        //                  select new AnimalDto
+        //                  {
+        //                      AnimalId = a.AnimalId,
+        //                      AdoptionStatusId = ad.AdoptionId,
+        //                      AnimalName = a.AnimalName,
+        //                      AnimalAgeYear = a.AnimalAgeYear,
+        //                      AnimalAgeMouth = a.AnimalAgeYear,
+        //                      AnimaiImageUrl = a.AnimaiImageUrl,
+        //                      AnimalAbout = a.AnimalAbout,
+        //                      AnimalGender = a.AnimalGender,
+        //                      GenusId = a.GenusId,
+        //                      TypeeId = a.TypeId
+
+        //                  }).ToList();
+        //    return result;
+
+        //}
         public IUtilityResult Update(AnimalDto animalDto)
         {
             var animal = new Animal();
@@ -146,11 +200,6 @@ namespace AnimalterV3.Busssines.Concrete
             }
 
             return _animalDal.GetAll(filter);
-        }
-
-        List<Animal> IAnimalService.Getall()
-        {
-            throw new NotImplementedException();
         }
     }
 }

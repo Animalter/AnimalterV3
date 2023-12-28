@@ -33,6 +33,7 @@ namespace AnimalterV3.Entity.Concrete
 
 
 
+
         public int GenusId { get; set; }
         [ForeignKey("GenusId")]
         public Genus Genus { get; set; }

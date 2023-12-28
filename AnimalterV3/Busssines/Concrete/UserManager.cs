@@ -72,8 +72,6 @@ namespace AnimalterV3.Busssines.Concrete
         public AccountDto Login(string UserName, string Password)
         {
             var Login = (from u in _userDal.GetAll().Where(x => (x.UserName == UserName.Trim() || x.Mail == UserName) && x.UserPassword.Trim() == Password.Trim())
-                             //join ur in _userRoleDal.GetAll() on u.UserId equals ur.UserId into gj
-                             //from x in gj.DefaultIfEmpty()
                          join r in _roleDal.GetAll() on u.RoleId equals r.RoleId into bjk
                          from y in bjk.DefaultIfEmpty()
                          select new AccountDto

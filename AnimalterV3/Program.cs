@@ -20,7 +20,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 #region ServiceAndRepoRegister
-//Ödev1
+
 builder.Services.AddTransient<ICustomerService, CustomerManager>();
 builder.Services.AddTransient<ICustomerDal, EfCustomerDal>();
 

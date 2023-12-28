@@ -53,26 +53,62 @@ namespace AnimalterV3.Controllers
         public async Task<string> UploadImage(IFormFile formFile)
         {
             string defaultPath = System.IO.Directory.GetCurrentDirectory();
-            if (formFile == null || formFile.Length == 0)
-            {
-                return "Invalid file";
-            }
+
             using (var ms = new MemoryStream())
             {
+                if (formFile == null || formFile.Length == 0)
+                {
+                    
+                    return null;
+                }
+
                 var fileName = System.IO.Path.GetFileName(formFile.FileName);
                 var fileNameWithOutExtension = System.IO.Path.GetFileNameWithoutExtension(formFile.FileName);
                 var myUniqueFileName = Convert.ToString(Guid.NewGuid());
                 var fileExtension = System.IO.Path.GetExtension(fileName);
                 var newFileName = String.Concat(myUniqueFileName, fileExtension);
 
-                if (formFile != null)
+                var Upload = System.IO.Path.Combine(defaultPath, @"Images\", newFileName);
+
+                using (var fileStream = new FileStream(Upload, FileMode.Create))
                 {
-                    var Upload = System.IO.Path.Combine(defaultPath, @"Images\", newFileName);
-                    formFile.CopyTo(new FileStream(Upload, FileMode.Create));
+                    formFile.CopyTo(fileStream);
                 }
+
                 return newFileName;
             }
         }
+
+
+        //[HttpPost("upload")]
+        //public async Task<string> UploadImage(IFormFile formFile)
+        //{
+        //    string defaultPath = System.IO.Directory.GetCurrentDirectory();
+        //    if (formFile == null || formFile.Length == 0)
+        //    {
+        //        return "Invalid file";
+        //    }
+        //    using (var ms = new MemoryStream())
+        //    {
+        //        var fileName = System.IO.Path.GetFileName(formFile.FileName);
+        //        var fileNameWithOutExtension = System.IO.Path.GetFileNameWithoutExtension(formFile.FileName);
+        //        var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+        //        var fileExtension = System.IO.Path.GetExtension(fileName);
+        //        var newFileName = String.Concat(myUniqueFileName, fileExtension);
+
+
+
+        //        if (formFile != null)
+        //        {
+        //            var Upload = System.IO.Path.Combine(defaultPath, @"Images\", newFileName);
+        //            formFile.CopyTo(new FileStream(Upload, FileMode.Create));
+        //        }
+        //        return newFileName;
+        //    }
+        //}
+
+
+
         [HttpGet("imageName")]
         public IActionResult GetImage(string imageName)
         {
