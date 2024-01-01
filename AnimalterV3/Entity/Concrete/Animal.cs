@@ -12,38 +12,22 @@ namespace AnimalterV3.Entity.Concrete
 
         [StringLength(50)]
         public string AnimalName { get; set; }
-
-        
+        public string AdoptionState { get; set; }
         public int AnimalAgeYear { get; set; }
-
-        
         public int AnimalAgeMouth { get; set; }
-
-    
-
         [StringLength(50)]
         public string AnimalAbout { get; set; }
-
         [StringLength(100)]
         public string AnimaiImageUrl { get; set; }
-
         [StringLength(50)]
         public string AnimalGender { get; set; }
-
-
-
-
-
+        public int? UserId { get; set; }
         public int GenusId { get; set; }
         [ForeignKey("GenusId")]
         public Genus Genus { get; set; }
-
         public int TypeId { get; set; }
         [ForeignKey("TypeId")]
         public Typee Typeee { get; set; }
-
-
-
         public ICollection<AdoptionStatus> AdoptionStatuses { get; set; }
     }
 }

@@ -34,18 +34,25 @@ namespace AnimalterV3.Busssines.Concrete
         private IAnimalDal _animalDal;
         private IAdoptionStatusDal _adoptionStatusDal;
         private IUserDal _userDal;
-        public AnimalManager(IAnimalDal animalDal, IAdoptionStatusDal adoptionStatusDal, IUserDal userDal)
+        private IGenusDal _genusDal;
+        private ITypeeDal _typeeDal;
+        public AnimalManager(IAnimalDal animalDal, IAdoptionStatusDal adoptionStatusDal, IUserDal userDal, IGenusDal genusDal, ITypeeDal typeeDal)
         {
             _animalDal = animalDal;
             _adoptionStatusDal = adoptionStatusDal;
             _userDal = userDal;
-
+            _genusDal = genusDal;   
+            _typeeDal= typeeDal;
+            
         }
         public IUtilityResult Add(AnimalDto animalDto)
         {
             Animal animal = new Animal();
+            
             animal.TypeId = animalDto.TypeeId;
+           
             animal.GenusId = animalDto.GenusId;
+            animal.AdoptionState=animalDto.AdoptionState;
             animal.AnimalName = animalDto.AnimalName;
             animal.AnimalAgeYear = animalDto.AnimalAgeYear;
             animal.AnimalAgeMouth = animalDto.AnimalAgeYear;
@@ -60,19 +67,24 @@ namespace AnimalterV3.Busssines.Concrete
         public List<AnimalDto> Getall()
         {
             var result = (from a in _animalDal.GetAll()
-                          join ad in _adoptionStatusDal.GetAll() on a.AnimalId equals ad.AnimalId
+                          join t in _typeeDal.GetAll() on a.TypeId equals t.TypeeId
+                          join g in _genusDal.GetAll() on a.GenusId equals g.GenusId
                           select new AnimalDto
                           {
-                              AnimalId = a.AnimalId,
-                              AdoptionStatusId = ad.AdoptionId,
+                              AnimalId = a.AnimalId,                             
+                              AdoptionState=a.AdoptionState,
                               AnimalName = a.AnimalName,
                               AnimalAgeYear = a.AnimalAgeYear,
                               AnimalAgeMouth = a.AnimalAgeYear,
                               AnimaiImageUrl = a.AnimaiImageUrl,
                               AnimalAbout = a.AnimalAbout,
                               AnimalGender = a.AnimalGender,
-                              GenusId = a.GenusId,
-                              TypeeId = a.TypeId
+                              GenusId = g.GenusId,
+                              Genuss=g.Genuss,
+                              TypeeId = a.TypeId,
+                              Typeee=t.Typeee
+                              
+                              
 
                           }).ToList();
             return result;
@@ -80,12 +92,13 @@ namespace AnimalterV3.Busssines.Concrete
         public List<AnimalDto> GetMyAllAnimal(int UserId)
         {
             var result = (from u in _userDal.GetAll(x => x.UserId == UserId)
-                          join ad in _adoptionStatusDal.GetAll() on u.UserId equals ad.UserId
-                          join  a in _animalDal.GetAll() on ad.AnimalId equals a.AnimalId
+                          join a in _animalDal.GetAll() on u.UserId equals a.UserId
+                          join t in _typeeDal.GetAll() on a.TypeId equals t.TypeeId
+                          join g in _genusDal.GetAll() on a.GenusId equals g.GenusId
                           select new AnimalDto
                           {
                               AnimalId = a.AnimalId,
-                              AdoptionStatusId = ad.AdoptionId,
+                              AdoptionState=a.AdoptionState,
                               AnimalName = a.AnimalName,
                               AnimalAgeYear = a.AnimalAgeYear,
                               AnimalAgeMouth = a.AnimalAgeYear,
@@ -93,7 +106,11 @@ namespace AnimalterV3.Busssines.Concrete
                               AnimalAbout = a.AnimalAbout,
                               AnimalGender = a.AnimalGender,
                               GenusId = a.GenusId,
-                              TypeeId = a.TypeId
+                              Genuss=g.Genuss,
+                              TypeeId = a.TypeId,
+                              Typeee = t.Typeee
+
+
 
                           }).ToList();
             return result;
@@ -122,6 +139,7 @@ namespace AnimalterV3.Busssines.Concrete
         public IUtilityResult Update(AnimalDto animalDto)
         {
             var animal = new Animal();
+            animal.AdoptionState = animalDto.AdoptionState;
             animal.TypeId = animalDto.TypeeId;
             animal.GenusId = animalDto.GenusId;
             animal.AnimalId = animalDto.AnimalId;
