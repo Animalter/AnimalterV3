@@ -13,6 +13,7 @@ namespace AnimalterV3.Dto
 
         public string AnimalName { get; set; }
         public string AdoptionState { get; set; }
+        public int? UserId { get; set; }
         public int AnimalAgeYear { get; set; }
 
         public int AnimalAgeMouth { get; set; }

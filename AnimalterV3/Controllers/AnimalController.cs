@@ -22,19 +22,20 @@ namespace AnimalterV3.Controllers
         #endregion
         #region methods
         [HttpGet("GetAnimalById")]
-        public async Task<Animal> GetAnimalById(int Id)
+        public async Task<List<AnimalDto>> GetAnimalById(int Id)
         {
             return _animalService.GetById(Id);
         }
+    
         [HttpGet]
         public async Task<List<AnimalDto>> GetAllAnimal()
         {
             return _animalService.Getall();
         }  
         [HttpGet("GetMyAllAnimal")]
-        public async Task<List<AnimalDto>> GetMyAllAnimal(int UserId)
+        public async Task<List<AnimalDto>> GetMyAllAnimal(string UserName)
         {
-            return _animalService.GetMyAllAnimal(UserId);
+            return _animalService.GetMyAllAnimal(UserName);
         }
         [HttpPost]
         public async Task<IUtilityResult> AddAnimal(AnimalDto animal)
@@ -46,15 +47,25 @@ namespace AnimalterV3.Controllers
         {
             return _animalService.Update(animal);
         }
+        [HttpPut("UpdateState")]
+        public async  Task<IUtilityResult> UpdateState(AnimalDto animal)
+        {
+            return _animalService.UpdateState(animal);
+        }
+        //[HttpPut("updateuser")]
+        //public async Task<IUtilityResult> updateUser(int AnimalId, string AdoptionState, int userId)
+        //{
+        //    return _animalService.updateUser(AnimalId, AdoptionState, userId);
+        //}
         [HttpDelete]
         public async Task<IUtilityResult> deleteAnimal(int animal)
         {
             return _animalService.Delete(animal);
         }
         [HttpGet("GetFilteredAnimals")]
-        public async Task<List<Animal>> GetFilteredAnimals( string animalName, int? genusId,int? typeId,int? ageYear,int? ageMouth)
+        public async Task<List<Animal>> GetFilteredAnimals(/* string animalName,*/ int? genusId,int? typeId,int? ageYear,int? ageMouth)
         {
-            return _animalService.GetFilteredAnimals(animalName, genusId, typeId, ageYear, ageMouth);
+            return _animalService.GetFilteredAnimals(/*animalName,*/ genusId, typeId, ageYear, ageMouth);
         }
 
 

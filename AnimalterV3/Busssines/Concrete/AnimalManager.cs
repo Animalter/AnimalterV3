@@ -89,9 +89,9 @@ namespace AnimalterV3.Busssines.Concrete
                           }).ToList();
             return result;
         }
-        public List<AnimalDto> GetMyAllAnimal(int UserId)
+        public List<AnimalDto> GetMyAllAnimal(string UserName)
         {
-            var result = (from u in _userDal.GetAll(x => x.UserId == UserId)
+            var result = (from u in _userDal.GetAll(x => x.UserName == UserName)
                           join a in _animalDal.GetAll() on u.UserId equals a.UserId
                           join t in _typeeDal.GetAll() on a.TypeId equals t.TypeeId
                           join g in _genusDal.GetAll() on a.GenusId equals g.GenusId
@@ -152,6 +152,55 @@ namespace AnimalterV3.Busssines.Concrete
             _animalDal.Update(animal);
             return new SuccessReasult();
         }
+        public IUtilityResult UpdateState(AnimalDto animalDto)
+        {
+            var animal = new Animal();
+            animal.UserId = animalDto.UserId;
+            animal.AdoptionState = animalDto.AdoptionState;
+            animal.TypeId = animalDto.TypeeId;
+            animal.GenusId = animalDto.GenusId;
+            animal.AnimalId = animalDto.AnimalId;
+            animal.AnimalName = animalDto.AnimalName;
+            animal.AnimalAgeYear = animalDto.AnimalAgeYear;
+            animal.AnimalAgeMouth = animalDto.AnimalAgeYear;
+            animal.AnimaiImageUrl = animalDto.AnimaiImageUrl;
+            animal.AnimalAbout = animalDto.AnimalAbout;
+            animal.AnimalGender = animalDto.AnimalGender;
+            _animalDal.Update(animal);
+
+            return new SuccessReasult();
+
+            //return _animalDal.GetAll(x => x.AnimalId == id) != null ? _animalDal.GetAll(x => x.AnimalId == id).FirstOrDefault() : new Animal(); ;
+        }
+        public IUtilityResult updateUser(int AnimalId,string AdoptionState,int userId)
+        {
+            var result = (from a in _animalDal.GetAll(x => x.AnimalId == AnimalId)
+                          join t in _typeeDal.GetAll() on a.TypeId equals t.TypeeId
+                          join g in _genusDal.GetAll() on a.GenusId equals g.GenusId
+                          select new AnimalDto
+                          {
+                              AnimalId = a.AnimalId,
+                              UserId= a.UserId,
+                              AdoptionState = a.AdoptionState,
+                              AnimalName = a.AnimalName,
+                              AnimalAgeYear = a.AnimalAgeYear,
+                              AnimalAgeMouth = a.AnimalAgeYear,
+                              AnimaiImageUrl = a.AnimaiImageUrl,
+                              AnimalAbout = a.AnimalAbout,
+                              AnimalGender = a.AnimalGender,
+                              GenusId = g.GenusId,
+                              Genuss = g.Genuss,
+                              TypeeId = a.TypeId,
+                              Typeee = t.Typeee
+
+                          });
+            return new SuccessReasult();
+
+
+            //return _animalDal.GetAll(x => x.AnimalId == id) != null ? _animalDal.GetAll(x => x.AnimalId == id).FirstOrDefault() : new Animal(); ;
+        }
+
+
         //public IUtilityResult Delete(AnimalDto animalDto)
         //{
         //    var animal = new Animal();
@@ -176,16 +225,32 @@ namespace AnimalterV3.Busssines.Concrete
             _animalDal.Delete(animal);
             return new SuccessReasult();
         }
-
-
-
-        public Animal GetById(int id)
+        public List< AnimalDto >GetById(int id)
         {
-            return _animalDal.GetAll(x => x.AnimalId == id) != null ? _animalDal.GetAll(x => x.AnimalId == id).FirstOrDefault() : new Animal(); ;
+            var result = (from a in _animalDal.GetAll(x => x.AnimalId == id)
+                          join t in _typeeDal.GetAll() on a.TypeId equals t.TypeeId
+                          join g in _genusDal.GetAll() on a.GenusId equals g.GenusId
+                          select new AnimalDto
+                          {
+                              AnimalId = a.AnimalId,
+                              AdoptionState = a.AdoptionState,
+                              AnimalName = a.AnimalName,
+                              AnimalAgeYear = a.AnimalAgeYear,
+                              AnimalAgeMouth = a.AnimalAgeYear,
+                              AnimaiImageUrl = a.AnimaiImageUrl,
+                              AnimalAbout = a.AnimalAbout,
+                              AnimalGender = a.AnimalGender,
+                              GenusId = g.GenusId,
+                              Genuss = g.Genuss,
+                              TypeeId = a.TypeId,
+                              Typeee = t.Typeee
+
+                          }).ToList();
+            return result;
+
+            //return _animalDal.GetAll(x => x.AnimalId == id) != null ? _animalDal.GetAll(x => x.AnimalId == id).FirstOrDefault() : new Animal(); ;
         }
-
-
-        public List<Animal> GetFilteredAnimals(string animalName, int? genusId, int? typeId, int? ageYear, int? ageMouth)
+        public List<Animal> GetFilteredAnimals(/*string animalName,*/ int? genusId, int? typeId, int? ageYear, int? ageMouth)
         {
             var filter = PredicateBuilder.True<Animal>();
 
@@ -201,10 +266,10 @@ namespace AnimalterV3.Busssines.Concrete
             }
 
 
-            if (!string.IsNullOrEmpty(animalName))
-            {
-                filter = filter.And(x => x.AnimalName.Contains(animalName));
-            }
+            //if (!string.IsNullOrEmpty(animalName))
+            //{
+            //    filter = filter.And(x => x.AnimalName.Contains(animalName));
+            //}
 
 
             if (ageYear.HasValue)
@@ -219,5 +284,32 @@ namespace AnimalterV3.Busssines.Concrete
 
             return _animalDal.GetAll(filter);
         }
+
+        //AnimalDto IAnimalService.updateUser(int AnimalId, string AdoptionState, int userId)
+        //{
+        //    var result = (from a in _animalDal.GetAll(x => x.AnimalId == AnimalId)
+        //                  join t in _typeeDal.GetAll() on a.TypeId equals t.TypeeId
+        //                  join g in _genusDal.GetAll() on a.GenusId equals g.GenusId
+        //                  select new AnimalDto
+        //                  {
+        //                      AnimalId = a.AnimalId,
+        //                      UserId = a.UserId,
+        //                      AdoptionState = a.AdoptionState,
+        //                      AnimalName = a.AnimalName,
+        //                      AnimalAgeYear = a.AnimalAgeYear,
+        //                      AnimalAgeMouth = a.AnimalAgeMouth,
+        //                      AnimaiImageUrl = a.AnimaiImageUrl,
+        //                      AnimalAbout = a.AnimalAbout,
+        //                      AnimalGender = a.AnimalGender,
+        //                      GenusId = g.GenusId,
+        //                      Genuss = g.Genuss,
+        //                      TypeeId = a.TypeId,
+        //                      Typeee = t.Typeee
+        //                  }).FirstOrDefault(); // Sorgunun ilk veya varsayılan değerini al
+
+        //    return result;
+        //}
+
+
     }
 }
