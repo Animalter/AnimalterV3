@@ -8,6 +8,7 @@ namespace AnimalterV3.Busssines.Abstract
     public interface IImageService
     {
         Image GetById(int id);
+
         List<Image> Getall();
         IUtilityResult Add(ImageDto ımage);
         IUtilityResult Update(ImageDto ımage);

@@ -89,9 +89,9 @@ namespace AnimalterV3.Busssines.Concrete
                           }).ToList();
             return result;
         }
-        public List<AnimalDto> GetMyAllAnimal(string UserName)
+        public List<AnimalDto> GetMyAllAnimal(int  UserId)
         {
-            var result = (from u in _userDal.GetAll(x => x.UserName == UserName)
+            var result = (from u in _userDal.GetAll(x => x.UserId == UserId)
                           join a in _animalDal.GetAll() on u.UserId equals a.UserId
                           join t in _typeeDal.GetAll() on a.TypeId equals t.TypeeId
                           join g in _genusDal.GetAll() on a.GenusId equals g.GenusId

@@ -14,7 +14,7 @@ namespace AnimalterV3.Busssines.Abstract
         IUtilityResult UpdateState(AnimalDto animal);
         //AnimalDto updateUser(int AnimalId, string AdoptionState, int userId);
         IUtilityResult Delete(int AnimalId);
-        List<AnimalDto> GetMyAllAnimal(string UserName);
+        List<AnimalDto> GetMyAllAnimal(int  UserId);
         List<Animal> GetFilteredAnimals(/*string animalName,*/ int? genusId, int? typeeId, int? ageyear, int? agemounth);
 
     }

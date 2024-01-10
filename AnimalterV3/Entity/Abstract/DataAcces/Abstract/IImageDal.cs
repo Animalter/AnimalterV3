@@ -5,5 +5,6 @@ namespace AnimalterV3.Entity.Abstract.DataAcces.Abstract
 {
     public interface IImageDal : IEntityRepository<Image>
     {
+
     }
 }
