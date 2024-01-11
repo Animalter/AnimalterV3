@@ -80,6 +80,7 @@ namespace AnimalterV3.Controllers
         }
 
 
+
         //[HttpGet]
         //[Route("filter")]
         //public async Task<ActionResult<IEnumerable<Animal>>> FilterAnimals([FromQuery] AnimalDto filter)
