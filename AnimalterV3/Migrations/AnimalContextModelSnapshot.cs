@@ -115,10 +115,13 @@ namespace AnimalterV3.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("GenusId")
+                    b.Property<int?>("GenusId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TypeId")
+                    b.Property<int?>("TypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("AnimalId");
@@ -375,15 +378,11 @@ namespace AnimalterV3.Migrations
                 {
                     b.HasOne("AnimalterV3.Entity.Concrete.Genus", "Genus")
                         .WithMany("Animals")
-                        .HasForeignKey("GenusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GenusId");
 
                     b.HasOne("AnimalterV3.Entity.Concrete.Typee", "Typeee")
                         .WithMany()
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TypeId");
 
                     b.Navigation("Genus");
 

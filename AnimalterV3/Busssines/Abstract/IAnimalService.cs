@@ -7,7 +7,7 @@ namespace AnimalterV3.Busssines.Abstract
 {
     public interface IAnimalService
     {
-        List<AnimalDto> GetById(int id);
+        AnimalDto GetById(int id);
         List<AnimalDto> Getall();
         IUtilityResult Add(AnimalDto animal);
         IUtilityResult Update(AnimalDto animal);
@@ -15,7 +15,10 @@ namespace AnimalterV3.Busssines.Abstract
         //AnimalDto updateUser(int AnimalId, string AdoptionState, int userId);
         IUtilityResult Delete(int AnimalId);
         List<AnimalDto> GetMyAllAnimal(int  UserId);
+        //Task<IEnumerable<Animal>> FilterAnimals(AnimalDto filter);
+        //List<AnimalDto> Filter(string? genus, string? type, int? ageYear, int? ageMouth);
         List<Animal> GetFilteredAnimals(/*string animalName,*/ int? genusId, int? typeeId, int? ageyear, int? agemounth);
+        List<AnimalDto> GetFilteredAnimals1(string? Genuss, string? Typeee, int? ageYear, int? ageMouth);
 
     }
 }

@@ -58,7 +58,7 @@ namespace AnimalterV3.Controllers
             {
                 if (formFile == null || formFile.Length == 0)
                 {
-                    
+
                     return null;
                 }
 
@@ -110,7 +110,7 @@ namespace AnimalterV3.Controllers
 
 
         [HttpGet("imageName")]
-        public IActionResult GetImage(string imageName)
+        public byte[] GetImage(string imageName)
         {
             string defaultPath = System.IO.Directory.GetCurrentDirectory();
             var imagePath = Path.Combine(defaultPath, @"Images\", imageName);
@@ -118,10 +118,11 @@ namespace AnimalterV3.Controllers
             if (System.IO.File.Exists(imagePath))
             {
                 var imageBytes = System.IO.File.ReadAllBytes(imagePath);
-                return File(imageBytes, "image/jpg"); // veya uygun olan MIME türünü belirtin
+                byte[] imageBytes1 = System.IO.File.ReadAllBytes(imagePath);
+                return imageBytes1; // veya uygun olan MIME türünü belirtin
             }
 
-            return NotFound();
+            return null;
         }
         #endregion
 

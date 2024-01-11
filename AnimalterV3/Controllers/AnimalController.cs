@@ -22,7 +22,7 @@ namespace AnimalterV3.Controllers
         #endregion
         #region methods
         [HttpGet("GetAnimalById")]
-        public async Task<List<AnimalDto>> GetAnimalById(int Id)
+        public async Task<AnimalDto> GetAnimalById(int Id)
         {
             return _animalService.GetById(Id);
         }
@@ -37,6 +37,12 @@ namespace AnimalterV3.Controllers
         {
             return _animalService.GetMyAllAnimal(UserId);
         }
+        //[HttpGet("filter")]
+        //public async Task<List<AnimalDto>> filter(string? genus, string? type, int? ageYear, int? ageMouth)
+        //{
+        //    return _animalService.Filter(genus,type,ageYear,ageMouth);
+        //}
+
         [HttpPost]
         public async Task<IUtilityResult> AddAnimal(AnimalDto animal)
         {
@@ -67,7 +73,27 @@ namespace AnimalterV3.Controllers
         {
             return _animalService.GetFilteredAnimals(/*animalName,*/ genusId, typeId, ageYear, ageMouth);
         }
+        [HttpGet("GetFilteredAnimals1")]
+        public async Task<List<AnimalDto>> GetFilteredAnimals1(string? genuss, string? type, int? ageYear, int? ageMouth)
+        {
+            return _animalService.GetFilteredAnimals1(genuss, type, ageYear, ageMouth);
+        }
 
+
+        //[HttpGet]
+        //[Route("filter")]
+        //public async Task<ActionResult<IEnumerable<Animal>>> FilterAnimals([FromQuery] AnimalDto filter)
+        //{
+        //    try
+        //    {
+        //        var result = await _animalService.FilterAnimals(filter);
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"Internal server error: {ex.Message}");
+        //    }
+        //}
 
         #endregion
 
